@@ -1,0 +1,2973 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="indigo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AkunQuiz AI Pro — Kuis Akuntansi AI, Mabar Lintas Perangkat & Ruang Diskusi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: {
+                            50: 'var(--p-50)',
+                            100: 'var(--p-100)',
+                            200: 'var(--p-200)',
+                            500: 'var(--p-500)',
+                            600: 'var(--p-600)',
+                            700: 'var(--p-700)',
+                            900: 'var(--p-900)',
+                        },
+                        surface: 'var(--bg-surface)',
+                        card: 'var(--bg-card)',
+                        ink: 'var(--text-ink)',
+                        muted: 'var(--text-muted)',
+                        line: 'var(--border-line)',
+                        quiz: {
+                            blue: '#2563eb',
+                            teal: '#0d9488',
+                            yellow: '#d97706',
+                            red: '#e11d48',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ==================== 5 REALISTIC LAYERED COLOR THEMES ==================== */
+        :root, [data-theme="indigo"] {
+            --p-50: #eef2ff; --p-100: #e0e7ff; --p-200: #c7d2fe;
+            --p-500: #6366f1; --p-600: #4f46e5; --p-700: #4338ca; --p-900: #312e81;
+            --bg-surface: #eef2f7; --bg-card: #ffffff;
+            --text-ink: #0f172a; --text-muted: #526077; --border-line: #dce3ee;
+            --hero-grad: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #5b21b6 100%);
+            --card-shadow: 0 14px 32px -8px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255,255,255,0.9);
+            --grid-dot: rgba(79, 70, 229, 0.07);
+        }
+        [data-theme="emerald"] {
+            --p-50: #ecfdf5; --p-100: #d1fae5; --p-200: #a7f3d0;
+            --p-500: #10b981; --p-600: #059669; --p-700: #047857; --p-900: #064e3b;
+            --bg-surface: #ebf5f1; --bg-card: #ffffff;
+            --text-ink: #064e3b; --text-muted: #46695e; --border-line: #c7e6dc;
+            --hero-grad: linear-gradient(135deg, #022c22 0%, #047857 52%, #0f766e 100%);
+            --card-shadow: 0 14px 32px -8px rgba(6, 78, 59, 0.09), 0 4px 12px -2px rgba(6, 78, 59, 0.04), inset 0 1px 0 rgba(255,255,255,0.9);
+            --grid-dot: rgba(5, 150, 105, 0.08);
+        }
+        [data-theme="sunset"] {
+            --p-50: #fff7ed; --p-100: #ffedd5; --p-200: #fed7aa;
+            --p-500: #f97316; --p-600: #ea580c; --p-700: #c2410c; --p-900: #7c2d12;
+            --bg-surface: #f8f1eb; --bg-card: #ffffff;
+            --text-ink: #29160c; --text-muted: #755847; --border-line: #f5d3b8;
+            --hero-grad: linear-gradient(135deg, #431407 0%, #c2410c 52%, #be123c 100%);
+            --card-shadow: 0 14px 32px -8px rgba(124, 45, 18, 0.09), 0 4px 12px -2px rgba(124, 45, 18, 0.04), inset 0 1px 0 rgba(255,255,255,0.9);
+            --grid-dot: rgba(234, 88, 12, 0.07);
+        }
+        [data-theme="sakura"] {
+            --p-50: #fdf2f8; --p-100: #fce7f3; --p-200: #fbcfe8;
+            --p-500: #ec4899; --p-600: #db2777; --p-700: #be185d; --p-900: #831843;
+            --bg-surface: #f9eef3; --bg-card: #ffffff;
+            --text-ink: #3b0d22; --text-muted: #7d5065; --border-line: #f4c8dc;
+            --hero-grad: linear-gradient(135deg, #500724 0%, #be185d 52%, #7e22ce 100%);
+            --card-shadow: 0 14px 32px -8px rgba(131, 24, 67, 0.09), 0 4px 12px -2px rgba(131, 24, 67, 0.04), inset 0 1px 0 rgba(255,255,255,0.9);
+            --grid-dot: rgba(219, 39, 119, 0.07);
+        }
+        [data-theme="cyber"] {
+            --p-50: #1b263b; --p-100: #273652; --p-200: #3a4f75;
+            --p-500: #38bdf8; --p-600: #0284c7; --p-700: #0369a1; --p-900: #09111e;
+            --bg-surface: #080d19; --bg-card: #11192c;
+            --text-ink: #f1f5f9; --text-muted: #94a3b8; --border-line: #22304c;
+            --hero-grad: linear-gradient(135deg, #040711 0%, #0369a1 52%, #4c1d95 100%);
+            --card-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55), 0 4px 14px -2px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+            --grid-dot: rgba(56, 189, 248, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-surface);
+            background-image:
+                linear-gradient(to right, var(--grid-dot) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--grid-dot) 1px, transparent 1px);
+            background-size: 28px 28px;
+            color: var(--text-ink);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* Realistic Ledger Paper Card */
+        .realistic-card {
+            background-color: var(--bg-card);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-line);
+            position: relative;
+        }
+        .ledger-accent-top {
+            border-top: 4px solid var(--p-600);
+        }
+
+        .glass-header {
+            background-color: color-mix(in srgb, var(--bg-card) 86%, transparent);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .tactile-btn {
+            box-shadow: 0 4px 0 var(--p-900), 0 8px 18px -4px rgba(15, 23, 42, 0.25);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tactile-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            filter: brightness(1.04);
+        }
+        .tactile-btn:active:not(:disabled) {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 var(--p-900);
+        }
+        .tactile-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .hero-banner {
+            background: var(--hero-grad);
+            box-shadow: 0 22px 40px -14px rgba(15, 23, 42, 0.32), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        /* Real HTML Table Styling for Accounting Journals, Ledgers & Statements */
+        .ai-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin: 14px 0;
+            border-radius: 14px;
+            border: 1px solid var(--border-line);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+        }
+        .ai-real-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.83rem;
+            text-align: left;
+            background-color: var(--bg-card);
+        }
+        .ai-real-table thead th {
+            background: linear-gradient(180deg, var(--p-600), var(--p-700));
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            padding: 11px 14px;
+            border-bottom: 2px solid var(--p-900);
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+        }
+        .ai-real-table tbody td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-line);
+            color: var(--text-ink);
+            vertical-align: top;
+            line-height: 1.45;
+        }
+        .ai-real-table tbody td.num-cell {
+            text-align: right;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .ai-real-table tbody tr:nth-child(even) {
+            background-color: color-mix(in srgb, var(--p-50) 50%, transparent);
+        }
+        .ai-real-table tbody tr:hover {
+            background-color: color-mix(in srgb, var(--p-100) 60%, transparent);
+        }
+        .ai-real-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .quiz-card-option {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.24), 0 10px 20px -6px rgba(0, 0, 0, 0.18);
+        }
+        .quiz-card-option:hover:not(:disabled) {
+            transform: translateY(-2px);
+            filter: brightness(1.06);
+        }
+        .quiz-card-option:active:not(:disabled) {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.24);
+        }
+
+        @keyframes flameFlicker {
+            0%, 100% { transform: scale(1) rotate(-2deg); filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.7)); }
+            50% { transform: scale(1.13) rotate(3deg); filter: drop-shadow(0 0 12px rgba(234, 88, 12, 0.95)); }
+        }
+        .flame-alive {
+            animation: flameFlicker 1.4s infinite ease-in-out;
+        }
+
+        ::-webkit-scrollbar { width: 7px; height: 7px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.45); border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.75); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+    <!-- ==================== TOP NAVBAR ==================== -->
+    <header class="glass-header border-b border-line sticky top-0 z-40 shadow-sm transition-colors">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+            
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-2.5 cursor-pointer shrink-0" onclick="switchTab('generator')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white shadow-md">
+                    <i data-lucide="calculator" class="w-5 h-5"></i>
+                </div>
+                <div class="hidden sm:block">
+                    <h1 class="font-display font-extrabold text-lg tracking-tight leading-none">
+                        AkunQuiz <span class="text-primary-600">AI Pro</span>
+                    </h1>
+                    <p class="text-[11px] text-muted font-medium mt-0.5" data-i18n="tagline">Smart Accounting Hub</p>
+                </div>
+            </div>
+
+            <!-- Main Navigation Tabs -->
+            <nav class="flex items-center gap-1 bg-primary-50/80 p-1 rounded-xl border border-line overflow-x-auto">
+                <button id="nav-generator" onclick="switchTab('generator')" class="nav-pill px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all bg-primary-600 text-white shadow-sm flex items-center gap-1.5 shrink-0">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <span data-i18n="nav_quiz">Kuis AI</span>
+                </button>
+                <button id="nav-mabar" onclick="switchTab('mabar')" class="nav-pill px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold text-muted hover:text-ink transition-all flex items-center gap-1.5 shrink-0">
+                    <i data-lucide="swords" class="w-4 h-4"></i>
+                    <span data-i18n="nav_mabar">Mabar Teman</span>
+                </button>
+                <button id="nav-english" onclick="switchTab('english')" class="nav-pill px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold text-muted hover:text-ink transition-all flex items-center gap-1.5 shrink-0">
+                    <i data-lucide="languages" class="w-4 h-4"></i>
+                    <span data-i18n="nav_english">Accounting English</span>
+                </button>
+                <button id="nav-forum" onclick="switchTab('forum')" class="nav-pill px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold text-muted hover:text-ink transition-all flex items-center gap-1.5 shrink-0">
+                    <i data-lucide="message-square-heart" class="w-4 h-4"></i>
+                    <span data-i18n="nav_forum">Diskusi & Tugas</span>
+                </button>
+            </nav>
+
+            <!-- Right Controls: Daily Flame, Language, Theme, Profile -->
+            <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+                
+                <!-- 1 Hari 1 Api (Daily Flame Streak Badge) -->
+                <button onclick="openFlameModal()" id="flame-nav-btn" title="Api Penghidup Sistem (1 Hari 1 Api)"
+                    class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-orange-300/70 bg-orange-500/10 hover:bg-orange-500/20 transition-all shadow-sm">
+                    <span id="nav-flame-icon" class="text-base sm:text-lg leading-none flame-alive">🔥</span>
+                    <div class="text-left">
+                        <div class="text-[11px] sm:text-xs font-extrabold text-orange-600 leading-none"><span id="nav-flame-count">1</span> Hari</div>
+                        <div id="nav-flame-status" class="text-[9px] font-bold text-orange-500 hidden md:block">Api Hidup!</div>
+                    </div>
+                </button>
+
+                <!-- Language Selector -->
+                <select id="lang-switcher" onchange="changeLanguage(this.value)" title="Pilih Bahasa / Language"
+                    class="px-2 py-1.5 rounded-xl bg-card border border-line text-xs font-bold text-ink outline-none focus:border-primary-500 cursor-pointer shadow-sm">
+                    <option value="id">🇮🇩 ID</option>
+                    <option value="en">🇬🇧 EN</option>
+                    <option value="bi">🌐 ID+EN</option>
+                </select>
+
+                <!-- Theme Color Palette Button -->
+                <div class="relative">
+                    <button onclick="toggleThemeDropdown()" title="Ganti Warna Tema"
+                        class="w-9 h-9 rounded-xl bg-card border border-line hover:bg-primary-50 flex items-center justify-center text-primary-600 transition-all shadow-sm">
+                        <i data-lucide="palette" class="w-4 h-4"></i>
+                    </button>
+                    <div id="theme-dropdown" class="hidden absolute right-0 mt-2 w-52 bg-card border border-line rounded-2xl shadow-2xl p-2 z-50 space-y-1">
+                        <div class="px-2.5 py-1 text-[11px] font-bold text-muted uppercase">Pilih Warna Tema</div>
+                        <button onclick="setTheme('indigo')" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-primary-50 text-xs font-bold text-ink">
+                            <span class="w-4 h-4 rounded-full bg-indigo-600 border border-white shadow-sm"></span> Royal Indigo
+                        </button>
+                        <button onclick="setTheme('emerald')" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-primary-50 text-xs font-bold text-ink">
+                            <span class="w-4 h-4 rounded-full bg-emerald-600 border border-white shadow-sm"></span> Emerald Ledger
+                        </button>
+                        <button onclick="setTheme('sunset')" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-primary-50 text-xs font-bold text-ink">
+                            <span class="w-4 h-4 rounded-full bg-orange-500 border border-white shadow-sm"></span> Sunset Terracotta
+                        </button>
+                        <button onclick="setTheme('sakura')" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-primary-50 text-xs font-bold text-ink">
+                            <span class="w-4 h-4 rounded-full bg-pink-600 border border-white shadow-sm"></span> Sakura Rose
+                        </button>
+                        <button onclick="setTheme('cyber')" class="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-primary-50 text-xs font-bold text-ink">
+                            <span class="w-4 h-4 rounded-full bg-slate-900 border border-sky-400 shadow-sm"></span> Midnight Dark
+                        </button>
+                    </div>
+                </div>
+
+                <!-- User Profile Button -->
+                <button onclick="openProfileModal()" class="flex items-center gap-2 pl-1.5 pr-3 py-1 rounded-xl bg-card border border-line hover:border-primary-500 shadow-sm transition-all">
+                    <img id="nav-avatar" src="" alt="Avatar" class="w-8 h-8 rounded-xl object-cover bg-primary-100 border border-primary-200">
+                    <div class="text-left hidden md:block">
+                        <div id="nav-nickname" class="text-xs font-extrabold leading-none max-w-[100px] truncate">Sobat Akun</div>
+                        <div class="text-[10px] text-primary-600 font-semibold mt-0.5">Profil & Avatar</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6">
+
+        <!-- ==================== VIEW 1: AI QUIZ GENERATOR ==================== -->
+        <section id="view-generator" class="space-y-6">
+            <!-- Hero Banner -->
+            <div class="hero-banner rounded-3xl p-6 sm:p-9 text-white relative overflow-hidden">
+                <div class="absolute right-4 -bottom-6 opacity-10 pointer-events-none">
+                    <i class="fa-solid fa-scale-balanced text-[200px]"></i>
+                </div>
+                <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <div class="max-w-2xl space-y-3">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-3 py-1 bg-white/15 backdrop-blur-sm rounded-full text-xs font-bold border border-white/20">
+                                ✨ Halo, <span id="hero-nickname">Sobat Akun</span>!
+                            </span>
+                            <span class="px-3 py-1 bg-orange-500/30 backdrop-blur-sm rounded-full text-xs font-bold border border-orange-300/30">
+                                🔥 Mainkan kuis hari ini agar Apimu tetap menyala!
+                            </span>
+                        </div>
+                        <h2 class="font-display text-2xl sm:text-4xl font-extrabold leading-tight" data-i18n="hero_title">
+                            Latihan Soal Akuntansi AI Hingga 100 Soal!
+                        </h2>
+                        <p class="text-white/85 text-sm sm:text-base leading-relaxed" data-i18n="hero_desc">
+                            Pilih jenjang Siswa/i atau Mahasiswa/i, eksplorasi katalog lengkap akuntansi nasional & internasional, 1 menit per soal, atau undang teman lomba lintas perangkat!
+                        </p>
+                    </div>
+                    <div class="shrink-0">
+                        <button onclick="switchTab('mabar')" class="px-5 py-3.5 rounded-2xl bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white font-display font-bold text-sm flex items-center gap-2.5 shadow-lg transition-all">
+                            <i data-lucide="users" class="w-5 h-5 text-yellow-300"></i>
+                            <div class="text-left">
+                                <div class="leading-none">Ajak Teman Lomba</div>
+                                <div class="text-[10px] text-white/80 font-normal mt-0.5">Buat Kode Ruang & Live Leaderboard</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configuration Panel -->
+            <div class="realistic-card ledger-accent-top rounded-3xl p-5 sm:p-8 space-y-7">
+                
+                <!-- Top Row: Jenjang (Siswa/i vs Mahasiswa/i) + Jumlah Soal + Kesulitan -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- Step 1: Pilih Jenjang (Siswa/i atau Mahasiswa/i) -->
+                    <div class="lg:col-span-5 space-y-3">
+                        <label class="block text-xs font-extrabold text-muted uppercase tracking-wider">
+                            1. Pilih Jenjang Peserta
+                        </label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+                            <button type="button" onclick="selectLevel('siswa')" id="btn-level-siswa" class="w-full p-4 rounded-2xl border-2 border-primary-600 bg-primary-50/70 text-left transition-all flex items-center gap-3.5 shadow-sm">
+                                <div class="w-11 h-11 rounded-xl bg-primary-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                                    <i data-lucide="backpack" class="w-5 h-5"></i>
+                                </div>
+                                <div class="flex-grow min-w-0">
+                                    <div class="flex items-center justify-between">
+                                        <h3 class="font-display font-bold text-sm sm:text-base">Siswa/i (SMA/SMK)</h3>
+                                        <i id="check-siswa" class="fa-solid fa-circle-check text-primary-600"></i>
+                                    </div>
+                                    <p class="text-xs text-muted mt-0.5">Tingkat sekolah menengah (dasar akuntansi hingga siklus dagang & SAK EMKM).</p>
+                                </div>
+                            </button>
+
+                            <button type="button" onclick="selectLevel('mahasiswa')" id="btn-level-mahasiswa" class="w-full p-4 rounded-2xl border-2 border-line hover:border-primary-500 bg-card text-left transition-all flex items-center gap-3.5 shadow-sm">
+                                <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center shrink-0">
+                                    <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                                </div>
+                                <div class="flex-grow min-w-0">
+                                    <div class="flex items-center justify-between">
+                                        <h3 class="font-display font-bold text-sm sm:text-base">Mahasiswa/i</h3>
+                                        <i id="check-mahasiswa" class="fa-solid fa-circle-check text-primary-600 hidden"></i>
+                                    </div>
+                                    <p class="text-xs text-muted mt-0.5">Terbuka untuk seluruh mahasiswa/i & umum dengan fokus keilmuan akuntansi.</p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Pengaturan Jumlah Soal, Kesulitan & Input Topik Bebas -->
+                    <div class="lg:col-span-7 space-y-4">
+                        <label class="block text-xs font-extrabold text-muted uppercase tracking-wider">
+                            2. Atur Parameter Kuis & Topik Materi
+                        </label>
+                        <div class="relative">
+                            <i data-lucide="book-open-check" class="w-4 h-4 absolute left-4 top-3.5 text-primary-600"></i>
+                            <input type="text" id="input-topic" placeholder="Klik materi dari katalog di bawah atau ketik topik bebas apa saja..." 
+                                class="w-full pl-11 pr-4 py-3 bg-surface border-2 border-line rounded-2xl text-sm font-bold text-ink focus:border-primary-500 outline-none shadow-inner">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-muted uppercase mb-1">Jumlah Soal (s/d 100)</label>
+                                <select id="select-count" class="w-full p-3 bg-surface border border-line rounded-xl text-sm font-bold text-ink outline-none focus:border-primary-500">
+                                    <option value="5">5 Soal (Pemanasan)</option>
+                                    <option value="10" selected>10 Soal (Standar)</option>
+                                    <option value="20">20 Soal (Latihan Harian)</option>
+                                    <option value="50">50 Soal (Tryout Intensif)</option>
+                                    <option value="100">100 Soal (Maraton Ujian!)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-muted uppercase mb-1">Tingkat Kesulitan</label>
+                                <select id="select-difficulty" class="w-full p-3 bg-surface border border-line rounded-xl text-sm font-bold text-ink outline-none focus:border-primary-500">
+                                    <option value="Mudah">Mudah (Konsep Dasar)</option>
+                                    <option value="Sedang" selected>Sedang (Hitung & Jurnal)</option>
+                                    <option value="Sulit">Sulit (Analisis Kasus)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-muted uppercase mb-1">Waktu per Soal</label>
+                                <div class="w-full p-3 bg-primary-50/90 border border-primary-200 rounded-xl text-sm font-extrabold text-primary-700 flex items-center gap-2">
+                                    <i data-lucide="timer" class="w-4 h-4"></i>
+                                    <span>60 Detik (1 Menit)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-1">
+                            <button id="btn-generate-quiz" onclick="startQuizGeneration()" class="sm:col-span-8 tactile-btn py-4 px-6 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-display font-bold text-base flex items-center justify-center gap-2.5">
+                                <i data-lucide="zap" class="w-5 h-5 text-yellow-300"></i>
+                                <span>Mulai Kuis & Nyalakan Api!</span>
+                            </button>
+                            <button type="button" onclick="createMabarFromCurrentTopic()" class="sm:col-span-4 py-4 px-4 rounded-2xl bg-card hover:bg-primary-50 border-2 border-primary-600 text-primary-700 font-display font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition-all">
+                                <i data-lucide="share-2" class="w-4 h-4"></i>
+                                <span>Mabar Topik Ini</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Katalog Lengkap Seluruh Materi Akuntansi (Nasional & Internasional) -->
+                <div class="pt-5 border-t border-line space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h3 class="font-display font-bold text-base sm:text-lg flex items-center gap-2">
+                                <i data-lucide="library" class="w-5 h-5 text-primary-600"></i>
+                                <span>Katalog Lengkap Materi Akuntansi (Nasional & Internasional)</span>
+                            </h3>
+                            <p class="text-xs text-muted">Pilih rumpun keilmuan atau cari mata kuliah / materi di bawah ini (<span id="catalog-count-badge" class="font-bold text-primary-600">30+ Materi</span> siap diujikan).</p>
+                        </div>
+                        <div class="relative w-full sm:w-72">
+                            <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3.5 top-3 text-muted"></i>
+                            <input type="text" id="catalog-search" onkeyup="renderTopicCatalog()" placeholder="Cari Desa, PBJ, FinTech, IPSAS, Syariah..." 
+                                class="w-full pl-9 pr-3 py-2 bg-surface border border-line rounded-xl text-xs font-medium outline-none focus:border-primary-500">
+                        </div>
+                    </div>
+
+                    <!-- Rumpun Ilmu Filter Tabs -->
+                    <div id="catalog-category-tabs" class="flex flex-wrap gap-2"></div>
+
+                    <!-- Topic Pills Grid -->
+                    <div id="topic-presets" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-80 overflow-y-auto pr-1"></div>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="quiz-loading" class="hidden realistic-card rounded-3xl p-10 text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-50 text-primary-600 mb-4 animate-bounce">
+                    <i data-lucide="brain-circuit" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-display text-xl font-bold mb-1">Prof. Akun Sedang Meracik Soal...</h3>
+                <p id="loading-subtext" class="text-sm text-muted max-w-md mx-auto">Untuk paket soal banyak (50–100 soal), AI memuat batch pertama agar kamu bisa langsung mulai tanpa menunggu lama!</p>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 2: QUIZ ARENA (1 MENIT PER SOAL + OPTIONAL MABAR LEADERBOARD) ==================== -->
+        <section id="view-quiz" class="hidden space-y-5">
+            <!-- Top Arena Bar -->
+            <div class="hero-banner text-white rounded-2xl p-4 sm:px-6 shadow-lg flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <button onclick="exitQuiz()" class="w-9 h-9 rounded-xl bg-white/15 hover:bg-white/25 flex items-center justify-center transition-all" title="Keluar Kuis">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                    <div>
+                        <div class="text-xs text-white/80 font-medium flex flex-wrap items-center gap-2">
+                            <span id="quiz-topic-display">Topik Akuntansi</span>
+                            <span id="arena-room-badge" class="hidden px-2.5 py-0.5 bg-yellow-400 text-slate-950 font-mono font-extrabold rounded-full text-[11px]">ROOM: ------</span>
+                            <span id="batch-loading-pill" class="hidden px-2 py-0.5 bg-white/20 rounded-full text-[10px] animate-pulse">Memuat soal lanjutan...</span>
+                        </div>
+                        <div class="font-display font-bold text-base sm:text-lg">
+                            Soal <span id="quiz-current-num">1</span> <span class="text-white/75 text-sm font-normal">/ <span id="quiz-total-num">10</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sound, Streak & Score -->
+                <div class="flex items-center gap-2.5 sm:gap-4">
+                    <button onclick="toggleSound()" id="btn-sound-toggle" class="w-9 h-9 rounded-xl bg-white/15 hover:bg-white/25 flex items-center justify-center" title="Suara Efek">
+                        <i data-lucide="volume-2" class="w-4 h-4"></i>
+                    </button>
+                    <div class="flex items-center gap-2 bg-white/15 px-3 py-1.5 rounded-xl">
+                        <span class="text-base">🔥</span>
+                        <div>
+                            <div class="text-[10px] uppercase text-white/75">Combo</div>
+                            <div class="font-mono font-bold text-sm leading-none" id="quiz-streak">0</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 bg-white/15 px-3 py-1.5 rounded-xl">
+                        <span class="text-base">🏆</span>
+                        <div>
+                            <div class="text-[10px] uppercase text-white/75">Skor</div>
+                            <div class="font-mono font-bold text-sm leading-none" id="quiz-score">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 60-Second Countdown Bar -->
+            <div class="w-full bg-line h-3 rounded-full overflow-hidden shadow-inner">
+                <div id="quiz-timer-bar" class="bg-gradient-to-r from-emerald-500 via-amber-400 to-rose-500 h-full w-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+                <!-- Main Question Card -->
+                <div id="arena-main-col" class="lg:col-span-12 realistic-card ledger-accent-top rounded-3xl overflow-hidden">
+                    <div class="p-6 sm:p-8 bg-primary-50/40 border-b border-line">
+                        <div class="flex items-center justify-between mb-3">
+                            <span id="question-difficulty-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-primary-100 text-primary-700">Sedang</span>
+                            <span class="text-sm font-mono font-extrabold text-primary-700 flex items-center gap-1.5 bg-card px-3.5 py-1 rounded-full border border-line shadow-sm">
+                                <i data-lucide="clock" class="w-4 h-4"></i>
+                                <span id="quiz-timer-text">60</span>s
+                            </span>
+                        </div>
+                        <h3 id="quiz-question-text" class="text-base sm:text-xl font-bold leading-relaxed whitespace-pre-line">
+                            Memuat soal...
+                        </h3>
+                    </div>
+
+                    <!-- 4 Options -->
+                    <div id="quiz-options-grid" class="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+                    <!-- Instant Explanation Panel -->
+                    <div id="quiz-feedback-panel" class="hidden border-t border-line p-6 sm:p-8 bg-surface space-y-4">
+                        <div id="feedback-banner" class="p-4 rounded-2xl flex flex-wrap items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div id="feedback-icon" class="w-10 h-10 rounded-xl flex items-center justify-center text-white text-lg"></div>
+                                <div>
+                                    <h4 id="feedback-title" class="font-display font-bold text-lg"></h4>
+                                    <p id="feedback-points" class="text-xs font-semibold"></p>
+                                </div>
+                            </div>
+                            <button onclick="askProfAboutCurrentQuestion()" class="px-3.5 py-2 rounded-xl bg-card hover:bg-primary-50 text-ink border border-line text-xs font-bold shadow-sm transition-all flex items-center gap-1.5">
+                                <i data-lucide="message-circle-question" class="w-4 h-4 text-primary-600"></i>
+                                <span>Tanya Prof. Akun di Ruang Diskusi</span>
+                            </button>
+                        </div>
+
+                        <div class="realistic-card rounded-2xl p-5 space-y-2">
+                            <div class="flex items-center gap-2 text-primary-600 font-bold text-sm">
+                                <i data-lucide="lightbulb" class="w-4 h-4 text-amber-500"></i>
+                                <span>Penjelasan Mudah & Analisis Jurnal:</span>
+                            </div>
+                            <div id="feedback-explanation" class="text-sm leading-relaxed space-y-2"></div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button id="btn-next-question" onclick="nextQuestion()" class="tactile-btn px-7 py-3.5 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-sm sm:text-base flex items-center gap-2">
+                                <span>Soal Berikutnya</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Multiplayer Sidebar (Visible only during Mabar Room match) -->
+                <div id="arena-mabar-sidebar" class="hidden lg:col-span-4 realistic-card rounded-3xl p-5 space-y-3">
+                    <div class="flex items-center justify-between border-b border-line pb-2.5">
+                        <div class="flex items-center gap-2 font-display font-bold text-sm text-primary-600">
+                            <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i>
+                            <span>Klasemen Live Mabar</span>
+                        </div>
+                        <span id="sidebar-room-code" class="font-mono text-xs font-extrabold px-2 py-0.5 rounded bg-primary-50 text-primary-700">------</span>
+                    </div>
+                    <div id="arena-live-leaderboard" class="space-y-2 max-h-96 overflow-y-auto"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 3: QUIZ SUMMARY & MULTIPLAYER PODIUM ==================== -->
+        <section id="view-summary" class="hidden space-y-6">
+            <div class="hero-banner rounded-3xl p-6 sm:p-10 text-white text-center shadow-xl space-y-4">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/30 border border-orange-300/40 text-xs font-extrabold">
+                    <span>🔥 Api Harian Menyala! Streak: <span id="summary-daily-flame">1</span> Hari</span>
+                </div>
+                <h2 class="font-display text-2xl sm:text-3xl font-extrabold">Keren Banget, <span id="summary-nickname">Sobat</span>!</h2>
+                <p class="text-white/85 text-sm max-w-xl mx-auto">Latihanmu selesai! Cek rekap skor dan pembahasan lengkapnya di bawah ini.</p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto pt-2">
+                    <div class="bg-white/15 backdrop-blur-sm rounded-2xl p-4">
+                        <div class="text-xs text-white/75 uppercase">Total Skor</div>
+                        <div id="summary-score" class="font-mono text-2xl sm:text-3xl font-extrabold text-yellow-300 mt-1">0</div>
+                    </div>
+                    <div class="bg-white/15 backdrop-blur-sm rounded-2xl p-4">
+                        <div class="text-xs text-white/75 uppercase">Akurasi</div>
+                        <div id="summary-accuracy" class="font-mono text-2xl sm:text-3xl font-extrabold text-emerald-300 mt-1">0%</div>
+                    </div>
+                    <div class="bg-white/15 backdrop-blur-sm rounded-2xl p-4">
+                        <div class="text-xs text-white/75 uppercase">Benar</div>
+                        <div id="summary-correct" class="font-mono text-2xl sm:text-3xl font-extrabold mt-1">0/0</div>
+                    </div>
+                    <div class="bg-white/15 backdrop-blur-sm rounded-2xl p-4">
+                        <div class="text-xs text-white/75 uppercase">Combo Tertinggi</div>
+                        <div id="summary-streak" class="font-mono text-2xl sm:text-3xl font-extrabold text-orange-300 mt-1">0</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-3 pt-4">
+                    <button onclick="switchTab('generator')" class="px-6 py-3 rounded-xl bg-white text-slate-900 font-bold text-sm hover:bg-slate-100 transition-all shadow-md">
+                        Main Kuis Lagi
+                    </button>
+                    <button onclick="switchTab('mabar')" class="px-6 py-3 rounded-xl bg-amber-400 text-slate-950 font-bold text-sm hover:bg-amber-300 transition-all shadow-md">
+                        Lomba Bareng Teman
+                    </button>
+                    <button onclick="switchTab('forum')" class="px-6 py-3 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-sm border border-white/25 transition-all">
+                        Diskusi bareng Prof. Akun
+                    </button>
+                </div>
+            </div>
+
+            <!-- Final Multiplayer Leaderboard (if played in Mabar Room) -->
+            <div id="summary-mabar-podium" class="hidden realistic-card ledger-accent-top rounded-3xl p-6 sm:p-8 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-display text-xl font-bold flex items-center gap-2">
+                        <i data-lucide="crown" class="w-6 h-6 text-amber-500"></i>
+                        <span>Papan Peringkat Akhir Lomba (Room <span id="summary-room-code" class="font-mono text-primary-600"></span>)</span>
+                    </h3>
+                    <span class="text-xs font-bold text-muted">Diperbarui Real-Time</span>
+                </div>
+                <div id="summary-final-leaderboard" class="space-y-2.5"></div>
+            </div>
+
+            <div class="realistic-card rounded-3xl p-6 sm:p-8 space-y-4">
+                <h3 class="font-display text-xl font-bold">Review Jawaban & Pembahasan</h3>
+                <div id="summary-review-list" class="space-y-4"></div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 4: MABAR / UNDANG TEMAN LINTAS PERANGKAT ==================== -->
+        <section id="view-mabar" class="hidden space-y-6">
+            <div class="hero-banner rounded-3xl p-6 sm:p-8 text-white shadow-xl">
+                <div class="max-w-3xl space-y-2">
+                    <span class="px-3 py-1 bg-white/15 rounded-full text-xs font-bold">⚔️ Multiplayer Real-Time Lintas HP & Laptop</span>
+                    <h2 class="font-display text-2xl sm:text-3xl font-extrabold">Ajak Teman Lomba Kuis Akuntansi Serentak!</h2>
+                    <p class="text-sm text-white/85">Buat Ruang Lomba untuk mendapatkan Kode 6 Karakter, bagikan ke WhatsApp / grup kelas, dan adu kecepatan serta ketepatan di Papan Peringkat Live!</p>
+                </div>
+            </div>
+
+            <!-- Create vs Join Cards (Hidden when inside active lobby) -->
+            <div id="mabar-setup-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Create Room -->
+                <div class="realistic-card ledger-accent-top rounded-3xl p-6 sm:p-8 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl bg-primary-600 text-white flex items-center justify-center shadow-md">
+                            <i data-lucide="plus-circle" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-lg">Buat Ruang Lomba Baru (Host)</h3>
+                            <p class="text-xs text-muted">Pilih materi & jumlah soal, lalu bagikan kode ke temanmu.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <label class="block text-xs font-bold text-muted uppercase mb-1">Materi Lomba Akuntansi</label>
+                            <input type="text" id="mabar-topic-input" value="Pengantar Akuntansi 1" placeholder="Ketik materi lomba..."
+                                class="w-full p-3 bg-surface border border-line rounded-xl text-sm font-bold outline-none focus:border-primary-500">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-muted uppercase mb-1">Jenjang</label>
+                                <select id="mabar-level-select" class="w-full p-3 bg-surface border border-line rounded-xl text-sm font-bold outline-none">
+                                    <option value="siswa">Siswa/i (SMA/SMK)</option>
+                                    <option value="mahasiswa">Mahasiswa/i</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-muted uppercase mb-1">Jumlah Soal</label>
+                                <select id="mabar-count-select" class="w-full p-3 bg-surface border border-line rounded-xl text-sm font-bold outline-none">
+                                    <option value="5">5 Soal Cepat</option>
+                                    <option value="10" selected>10 Soal Seru</option>
+                                    <option value="20">20 Soal Kompetisi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button id="btn-create-room" onclick="createMabarRoom()" class="tactile-btn w-full py-3.5 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-display font-bold text-sm flex items-center justify-center gap-2">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-yellow-300"></i>
+                            <span>Buat Ruang & Dapatkan Kode Undangan</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Join Room -->
+                <div class="realistic-card rounded-3xl p-6 sm:p-8 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-md">
+                                <i data-lucide="log-in" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display font-bold text-lg">Gabung Ruang Teman (Peserta)</h3>
+                                <p class="text-xs text-muted">Masukkan kode 6 karakter dari temanmu untuk masuk lobi.</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 pt-2">
+                            <div>
+                                <label class="block text-xs font-bold text-muted uppercase mb-1">Kode Ruang (Contoh: AKUN88)</label>
+                                <input type="text" id="mabar-join-code" maxlength="8" placeholder="KETIK KODE RUANG..."
+                                    class="w-full p-4 bg-surface border-2 border-line rounded-2xl text-center font-mono text-2xl font-extrabold uppercase tracking-widest outline-none focus:border-emerald-500">
+                            </div>
+                            <button onclick="joinMabarRoom()" class="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                                <span>Gabung ke Ruang Lomba</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-surface border border-line text-xs text-muted flex items-center justify-between">
+                        <span>Status Sinkronisasi Lintas Perangkat:</span>
+                        <span id="mabar-cloud-badge" class="font-bold text-primary-600">Memeriksa Cloud...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Mabar Lobby View -->
+            <div id="mabar-lobby-panel" class="hidden realistic-card ledger-accent-top rounded-3xl p-6 sm:p-8 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-line pb-5">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-700 text-xs font-extrabold">🟢 Lobi Aktif • Menunggu Peserta</span>
+                        <h3 id="lobby-topic-title" class="font-display text-xl sm:text-2xl font-extrabold mt-2">Materi Kuis</h3>
+                        <p id="lobby-meta-info" class="text-xs text-muted mt-0.5">10 Soal • 60 Detik/Soal</p>
+                    </div>
+
+                    <!-- Shareable Room Code Box -->
+                    <div class="bg-primary-50/90 border-2 border-primary-300 rounded-2xl p-4 flex flex-wrap items-center gap-3">
+                        <div>
+                            <div class="text-[10px] font-extrabold text-primary-700 uppercase">Kode Undangan Ruang</div>
+                            <div id="lobby-room-code" class="font-mono text-2xl sm:text-3xl font-extrabold text-primary-700 tracking-widest">------</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="copyRoomInviteLink()" class="px-3.5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Salin Link & Kode</span>
+                            </button>
+                            <button onclick="leaveMabarRoom()" class="px-3 py-2.5 rounded-xl bg-card border border-line hover:bg-rose-50 text-rose-600 text-xs font-bold">
+                                Keluar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Players Grid -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-display font-bold text-base">Peserta yang Sudah Bergabung (<span id="lobby-player-count">1</span>)</h4>
+                        <span class="text-xs text-muted">Otomatis terupdate saat teman masuk</span>
+                    </div>
+                    <div id="lobby-players-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"></div>
+                </div>
+
+                <!-- Host Start Controls -->
+                <div class="pt-4 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <p id="lobby-wait-hint" class="text-xs text-muted">Bagikan kode di atas ke temanmu. Jika semua sudah siap, Host dapat memulai lomba sekarang!</p>
+                    <button id="btn-host-start-mabar" onclick="hostStartMabarMatch()" class="tactile-btn w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-display font-bold text-base flex items-center justify-center gap-2">
+                        <i data-lucide="play" class="w-5 h-5 text-yellow-300"></i>
+                        <span>Mulai Lomba Sekarang!</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 5: ACCOUNTING ENGLISH STUDIO ==================== -->
+        <section id="view-english" class="hidden space-y-6">
+            <div class="hero-banner rounded-3xl p-6 sm:p-8 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2 max-w-2xl">
+                    <span class="px-3 py-1 bg-white/15 rounded-full text-xs font-bold">🇬🇧 Accounting English Mastery</span>
+                    <h2 class="font-display text-2xl sm:text-3xl font-extrabold">Kuasai Istilah Akuntansi Bahasa Inggris!</h2>
+                    <p class="text-sm text-white/85">Pahami kosakata laporan keuangan internasional (IFRS/GAAP), dengarkan cara pelafalannya, lihat contoh jurnal bahasa Inggris, dan uji kemampuanmu.</p>
+                </div>
+                <div class="flex flex-wrap gap-2 shrink-0">
+                    <button onclick="generateEnglishQuiz()" class="px-5 py-3 rounded-2xl bg-white text-slate-900 font-bold text-sm shadow-md hover:bg-slate-100 transition-all flex items-center gap-2">
+                        <i data-lucide="play" class="w-4 h-4 text-primary-600"></i>
+                        <span>Kuis Istilah English</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search & AI Term Lookup -->
+            <div class="realistic-card rounded-3xl p-5 sm:p-6 space-y-4">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="relative flex-grow">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-4 top-3.5 text-muted"></i>
+                        <input type="text" id="english-search-input" onkeyup="filterEnglishTerms()" placeholder="Cari istilah (misal: Accrued Expense, Retained Earnings, Piutang, Penyusutan)..."
+                            class="w-full pl-11 pr-4 py-3 bg-surface border border-line rounded-xl text-sm outline-none focus:border-primary-500">
+                    </div>
+                    <button onclick="askAITranslateAccountingTerm()" class="px-5 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-sm transition-all flex items-center justify-center gap-2 shrink-0">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <span>Tanya AI Istilah Baru</span>
+                    </button>
+                </div>
+
+                <!-- Category Filter Pills -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterEnglishCategory('All')" class="en-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-primary-600 text-white">Semua (All)</button>
+                    <button onclick="filterEnglishCategory('Assets & Liabilities')" class="en-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-surface border border-line text-muted hover:text-ink">Assets & Liabilities</button>
+                    <button onclick="filterEnglishCategory('Income Statement')" class="en-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-surface border border-line text-muted hover:text-ink">Income Statement</button>
+                    <button onclick="filterEnglishCategory('Journals & Audit')" class="en-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-surface border border-line text-muted hover:text-ink">Journals & Audit</button>
+                </div>
+            </div>
+
+            <!-- AI Custom Term Result Box -->
+            <div id="ai-term-result" class="hidden realistic-card rounded-3xl border-2 border-primary-500 p-6 space-y-2"></div>
+
+            <!-- Flashcards Grid -->
+            <div id="english-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <!-- ==================== VIEW 6: RUANG DISKUSI SERU & BANTU TUGAS ==================== -->
+        <section id="view-forum" class="hidden space-y-6">
+            <!-- Header Card -->
+            <div class="hero-banner rounded-3xl p-6 sm:p-8 text-white shadow-lg flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div class="space-y-1.5">
+                    <span class="px-3 py-1 bg-white/15 rounded-full text-xs font-bold">☕ Tongkrongan Akuntansi Santai & Cerdas</span>
+                    <h2 class="font-display text-2xl sm:text-3xl font-extrabold">Ruang Diskusi & Bantu Tugas bareng Prof. Akun</h2>
+                    <p class="text-sm text-white/85 max-w-2xl">Ngobrol santai soal akuntansi, bedah tugas kuliah/sekolah dengan tabel jurnal rapi, lengkap dengan referensi PSAK, IFRS, UU Pajak & buku teks terpercaya!</p>
+                </div>
+                <div class="flex flex-wrap gap-2.5 shrink-0">
+                    <button onclick="switchForumSubMode('chat')" id="btn-sub-chat" class="px-4 py-2.5 rounded-xl bg-white text-slate-900 font-bold text-xs sm:text-sm shadow-sm flex items-center gap-2">
+                        <i data-lucide="bot" class="w-4 h-4 text-primary-600"></i>
+                        <span>Ngobrol & Bantu Tugas AI</span>
+                    </button>
+                    <button onclick="switchForumSubMode('board')" id="btn-sub-board" class="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm border border-white/25 flex items-center gap-2">
+                        <i data-lucide="users" class="w-4 h-4"></i>
+                        <span>Forum Komunitas</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SUB-MODE A: NGOBROL SERU & BANTU TUGAS + SUMBER TERPERCAYA -->
+            <div id="forum-sub-chat" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left: Chat with Prof. Akun -->
+                <div class="lg:col-span-8 realistic-card ledger-accent-top rounded-3xl overflow-hidden flex flex-col h-[70vh] min-h-[520px]">
+                    <div class="p-4 bg-primary-50/60 border-b border-line flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-primary-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+                                🧑‍🏫
+                            </div>
+                            <div>
+                                <h3 class="font-display font-bold text-sm sm:text-base">Prof. Akun (Mentor Akuntansi Asik)</h3>
+                                <p class="text-xs text-muted">Bahasa santai, tabel jurnal rapi, & menyertakan sumber referensi valid</p>
+                            </div>
+                        </div>
+                        <button onclick="resetProfChat()" class="px-3 py-1.5 rounded-xl bg-card border border-line hover:bg-primary-50 text-xs font-bold text-muted">
+                            Obrolan Baru
+                        </button>
+                    </div>
+
+                    <!-- Messages -->
+                    <div id="prof-chat-box" class="flex-grow p-4 sm:p-6 overflow-y-auto space-y-4 bg-surface"></div>
+
+                    <!-- Quick Starter Prompts -->
+                    <div class="px-4 py-2.5 bg-card border-t border-line flex gap-2 overflow-x-auto">
+                        <button onclick="quickProfAsk('Prof, bantu jelasin dong kenapa Akumulasi Penyusutan saldo normalnya di Kredit? Pakai analogi sehari-hari ya!')" class="shrink-0 px-3 py-1.5 rounded-full bg-primary-50 hover:bg-primary-100 text-primary-700 text-xs font-bold transition-all">
+                            🤔 Kenapa Akumulasi Penyusutan di Kredit?
+                        </button>
+                        <button onclick="quickProfAsk('Prof, tolong bantu kerjain tugas ini langkah demi langkah beserta tabel jurnal dan sumber PSAK-nya: PT Maju membeli mesin Rp 120.000.000 pada 1 Juli 2025, nilai residu Rp 20.000.000, umur ekonomis 5 tahun metode garis lurus. Berapa penyusutan tahun 2025 dan jurnalnya?')" class="shrink-0 px-3 py-1.5 rounded-full bg-primary-50 hover:bg-primary-100 text-primary-700 text-xs font-bold transition-all">
+                            📝 Contoh Bantu Tugas Penyusutan + Sumber
+                        </button>
+                        <button onclick="quickProfAsk('Apa bedanya Laporan Keuangan SAK EMKM buat UMKM sama PSAK Umum? Buat perbandingan dalam bentuk tabel ya Prof!')" class="shrink-0 px-3 py-1.5 rounded-full bg-primary-50 hover:bg-primary-100 text-primary-700 text-xs font-bold transition-all">
+                            📚 Tabel Perbandingan SAK EMKM vs PSAK
+                        </button>
+                    </div>
+
+                    <!-- Input Form -->
+                    <form onsubmit="sendProfMessage(event)" class="p-3.5 bg-card border-t border-line flex gap-2.5">
+                        <input type="text" id="prof-input" placeholder="Curhat soal tugas akuntansi, tanya jurnal, atau minta referensi di sini..."
+                            class="flex-grow px-4 py-3 bg-surface border border-line rounded-xl text-sm outline-none focus:border-primary-500">
+                        <button type="submit" class="px-5 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-sm flex items-center gap-2 shrink-0">
+                            <span>Kirim</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right: Credible Accounting Sources & Study Guide -->
+                <div class="lg:col-span-4 space-y-4">
+                    <div class="realistic-card rounded-3xl p-5 space-y-3">
+                        <div class="flex items-center gap-2 text-primary-600 font-display font-bold text-base">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            <span>Sumber Referensi Terpercaya</span>
+                        </div>
+                        <p class="text-xs text-muted leading-relaxed">
+                            Setiap jawaban tugas dari Prof. Akun merujuk pada standar dan literatur resmi berikut:
+                        </p>
+                        <div class="space-y-2.5 text-xs">
+                            <a href="https://web.iaiglobal.or.id/" target="_blank" rel="noopener noreferrer" class="block p-3 rounded-2xl bg-surface hover:bg-primary-50 border border-line transition-all">
+                                <div class="font-bold text-ink flex items-center justify-between">
+                                    <span>IAI — SAK, PSAK & SAK EMKM</span>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-primary-600"></i>
+                                </div>
+                                <p class="text-muted mt-0.5">Ikatan Akuntan Indonesia (Standar Resmi Nasional)</p>
+                            </a>
+                            <a href="https://www.ifrs.org/" target="_blank" rel="noopener noreferrer" class="block p-3 rounded-2xl bg-surface hover:bg-primary-50 border border-line transition-all">
+                                <div class="font-bold text-ink flex items-center justify-between">
+                                    <span>IFRS & IPSAS Foundation</span>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-primary-600"></i>
+                                </div>
+                                <p class="text-muted mt-0.5">International Financial & Public Sector Standards</p>
+                            </a>
+                            <a href="https://www.pajak.go.id/" target="_blank" rel="noopener noreferrer" class="block p-3 rounded-2xl bg-surface hover:bg-primary-50 border border-line transition-all">
+                                <div class="font-bold text-ink flex items-center justify-between">
+                                    <span>DJP — Peraturan Perpajakan</span>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-primary-600"></i>
+                                </div>
+                                <p class="text-muted mt-0.5">UU HPP, PPh 21/22/23/25 & PPN Terkini</p>
+                            </a>
+                            <div class="p-3 rounded-2xl bg-surface border border-line">
+                                <div class="font-bold text-ink">Buku Teks Akademik Utama:</div>
+                                <ul class="text-muted mt-1 space-y-1 list-disc list-inside">
+                                    <li>Kieso, Weygandt, Warfield — Intermediate Accounting</li>
+                                    <li>Warren, Reeve, Duchac — Accounting</li>
+                                    <li>Horngren — Cost Accounting</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-MODE B: COMMUNITY DISCUSSION BOARD -->
+            <div id="forum-sub-board" class="hidden space-y-5">
+                <div class="realistic-card rounded-3xl p-5 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterBoard('Semua')" class="board-filter px-4 py-2 rounded-xl text-xs font-bold bg-primary-600 text-white">Semua</button>
+                        <button onclick="filterBoard('Siswa/i')" class="board-filter px-4 py-2 rounded-xl text-xs font-bold bg-surface border border-line text-muted">Siswa/i</button>
+                        <button onclick="filterBoard('Mahasiswa/i')" class="board-filter px-4 py-2 rounded-xl text-xs font-bold bg-surface border border-line text-muted">Mahasiswa/i</button>
+                        <button onclick="filterBoard('Bantu Tugas')" class="board-filter px-4 py-2 rounded-xl text-xs font-bold bg-surface border border-line text-muted">Bantu Tugas</button>
+                    </div>
+                    <button onclick="toggleNewPostForm()" class="px-4 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs flex items-center gap-2">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span>Tulis Postingan Baru</span>
+                    </button>
+                </div>
+
+                <!-- New Post Collapsible -->
+                <div id="new-post-form" class="hidden realistic-card rounded-3xl border-2 border-primary-500 p-6 space-y-4">
+                    <h3 class="font-display font-bold text-base">Buat Topik Diskusi atau Tanya Tugas</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" id="board-title" placeholder="Judul pertanyaan / tugas..." class="p-3 bg-surface border border-line rounded-xl text-sm outline-none focus:border-primary-500">
+                        <select id="board-cat" class="p-3 bg-surface border border-line rounded-xl text-sm font-semibold outline-none">
+                            <option value="Siswa/i">Siswa/i</option>
+                            <option value="Mahasiswa/i">Mahasiswa/i</option>
+                            <option value="Bantu Tugas">Bantu Tugas</option>
+                        </select>
+                    </div>
+                    <textarea id="board-content" rows="3" placeholder="Tuliskan detail soal, transaksi, atau kebingunganmu di sini..." class="w-full p-3 bg-surface border border-line rounded-xl text-sm outline-none focus:border-primary-500"></textarea>
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <label class="flex items-center gap-2 text-xs font-bold text-ink cursor-pointer">
+                            <input type="checkbox" id="board-ai-auto" checked class="w-4 h-4 accent-primary-600">
+                            <span>Undang Prof. Akun langsung menjawab dengan bahasa asik & sumber referensi</span>
+                        </label>
+                        <button onclick="submitBoardPost()" class="px-6 py-2.5 rounded-xl bg-primary-600 text-white font-bold text-xs">Posting Sekarang</button>
+                    </div>
+                </div>
+
+                <div id="board-posts-list" class="space-y-4"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== MODAL: PROFIL, EMAIL, FOTO & AVATAR LUCU (TANPA JENJANG) ==================== -->
+    <div id="modal-profile" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="realistic-card ledger-accent-top rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-5 my-8">
+            <div class="flex items-center justify-between border-b border-line pb-3">
+                <h3 class="font-display font-bold text-lg flex items-center gap-2">
+                    <i data-lucide="user-circle" class="w-5 h-5 text-primary-600"></i>
+                    <span>Profil Akun & Avatar Lucu</span>
+                </h3>
+                <button onclick="closeProfileModal()" class="text-muted hover:text-ink">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Photo Upload OR Cute Kawaii Avatar Picker -->
+            <div class="bg-surface p-4 rounded-2xl border border-line space-y-3">
+                <div class="flex flex-col sm:flex-row items-center gap-4">
+                    <img id="modal-avatar-preview" src="" alt="Preview" class="w-20 h-20 rounded-2xl object-cover border-2 border-primary-500 bg-primary-100 shrink-0 shadow-md">
+                    <div class="space-y-2 text-center sm:text-left flex-grow">
+                        <div id="avatar-character-label" class="text-xs font-extrabold text-primary-600">🐱 Kucing Oren Kalkulator</div>
+                        <p class="text-[11px] text-muted">Unggah fotomu sendiri atau pilih salah satu dari 8 karakter imut bertema akuntansi di bawah ini!</p>
+                        <div class="flex flex-wrap justify-center sm:justify-start gap-2">
+                            <label class="px-3 py-1.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold cursor-pointer transition-all flex items-center gap-1.5 shadow-sm">
+                                <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                                <span>Unggah Foto Sendiri</span>
+                                <input type="file" accept="image/*" onchange="handlePhotoUpload(event)" class="hidden">
+                            </label>
+                            <button type="button" onclick="randomizeFreeAvatar()" class="px-3 py-1.5 rounded-xl bg-card border border-line hover:bg-primary-50 text-ink text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-primary-600"></i>
+                                <span>Acak Avatar Lucu</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 8 Cute Kawaii Avatars Grid -->
+                <div id="free-avatar-grid" class="grid grid-cols-4 gap-2.5 pt-2 border-t border-line"></div>
+            </div>
+
+            <!-- Form Fields (Tanpa pilihan siswa/mahasiswa di akun) -->
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-muted uppercase mb-1">Nama Panggilan (Untuk Sapaan Akrab Prof. Akun)</label>
+                    <input type="text" id="prof-field-nickname" placeholder="Contoh: Rina, Budi, Kak Dinda..." class="w-full p-3 bg-surface border border-line rounded-xl text-sm font-semibold outline-none focus:border-primary-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-muted uppercase mb-1">Alamat Email (Untuk Login & Notifikasi Terbaru)</label>
+                    <input type="email" id="prof-field-email" placeholder="nama@email.com" class="w-full p-3 bg-surface border border-line rounded-xl text-sm font-semibold outline-none focus:border-primary-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-muted uppercase mb-1">Kata Sandi (Opsional untuk Sinkronisasi Cloud)</label>
+                    <input type="password" id="prof-field-password" placeholder="••••••••" class="w-full p-3 bg-surface border border-line rounded-xl text-sm font-semibold outline-none focus:border-primary-500">
+                </div>
+                <div class="pt-1">
+                    <label class="flex items-center gap-2.5 text-xs font-bold text-ink cursor-pointer bg-surface p-3 rounded-xl border border-line">
+                        <input type="checkbox" id="prof-field-notif" checked class="w-4 h-4 accent-primary-600">
+                        <span>Kirim pengingat Api Harian & info materi akuntansi baru langsung ke Email saya</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-line">
+                <span id="auth-sync-status" class="text-[11px] text-muted font-medium">Mode Penyimpanan Lokal & Cloud Siap</span>
+                <button onclick="saveUserProfile()" class="tactile-btn px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-sm">
+                    Simpan Profil
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: 1 HARI 1 API (DAILY FLAME TRACKER) ==================== -->
+    <div id="modal-flame" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="realistic-card rounded-3xl max-w-md w-full p-6 sm:p-8 text-center space-y-5">
+            <div class="flex justify-end">
+                <button onclick="closeFlameModal()" class="text-muted hover:text-ink"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div id="modal-flame-big-icon" class="text-6xl flame-alive">🔥</div>
+            <div>
+                <h3 class="font-display text-2xl font-extrabold">Api Penghidup Sistem</h3>
+                <p id="modal-flame-desc" class="text-sm text-muted mt-1">
+                    Mainkan minimal 1 kuis setiap hari agar apimu tetap menyala! Jika terlewat 1 hari tanpa bermain, api akan padam dan mulai dari 0 lagi.
+                </p>
+            </div>
+            <div class="bg-orange-500/10 border border-orange-300/50 rounded-2xl p-4">
+                <div class="text-xs font-bold text-orange-600 uppercase">Streak Api Aktif Saat Ini</div>
+                <div class="font-display text-3xl font-extrabold text-orange-600 mt-1"><span id="modal-flame-days">1</span> Hari Beruntun</div>
+                <div id="modal-flame-today-badge" class="inline-block mt-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-700 text-xs font-bold">
+                    ✅ Api Hari Ini Sudah Menyala!
+                </div>
+            </div>
+            <div id="flame-week-tracker" class="grid grid-cols-7 gap-2 pt-1"></div>
+            <button onclick="closeFlameModal(); switchTab('generator');" class="w-full py-3.5 rounded-2xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm shadow-lg">
+                Mainkan Kuis Sekarang!
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== FIREBASE & MULTIPLAYER REALTIME MODULE ==================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+        let roomUnsubscribe = null;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'akunquiz-ai-pro';
+
+        try {
+            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                const firebaseConfig = JSON.parse(__firebase_config);
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                const initAuth = async () => {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                };
+                initAuth().catch(() => {});
+
+                onAuthStateChanged(auth, async (user) => {
+                    currentUser = user;
+                    if (user && db) {
+                        document.getElementById('auth-sync-status').textContent = "🟢 Terhubung ke Cloud & Email Sync";
+                        const mabarBadge = document.getElementById('mabar-cloud-badge');
+                        if (mabarBadge) mabarBadge.textContent = "🟢 Online Lintas Perangkat";
+                        try {
+                            const snap = await getDoc(doc(db, 'artifacts', appId, 'users', user.uid, 'profile', 'main'));
+                            if (snap.exists()) {
+                                window.applyLoadedProfile(snap.data());
+                            }
+                        } catch (e) {}
+                    }
+                });
+            } else {
+                const mabarBadge = document.getElementById('mabar-cloud-badge');
+                if (mabarBadge) mabarBadge.textContent = "🟡 Mode Simulasi Lokal";
+            }
+        } catch (err) {
+            console.debug("Running in local-ready mode");
+        }
+
+        window.getCloudPlayerId = function() {
+            if (auth && auth.currentUser) return auth.currentUser.uid;
+            let localId = localStorage.getItem('akunquiz_player_uid');
+            if (!localId) {
+                localId = 'player_' + Math.random().toString(36).substring(2, 10);
+                localStorage.setItem('akunquiz_player_uid', localId);
+            }
+            return localId;
+        };
+
+        window.syncProfileToCloud = async function(profileData) {
+            if (!auth || !db || !currentUser) return;
+            try {
+                if (profileData.email && profileData.password && profileData.password.length >= 6) {
+                    try {
+                        await createUserWithEmailAndPassword(auth, profileData.email, profileData.password);
+                    } catch (e) {
+                        try { await signInWithEmailAndPassword(auth, profileData.email, profileData.password); } catch (_) {}
+                    }
+                }
+                const uid = auth.currentUser?.uid || currentUser.uid;
+                const cleanData = { ...profileData };
+                delete cleanData.password;
+                await setDoc(doc(db, 'artifacts', appId, 'users', uid, 'profile', 'main'), cleanData, { merge: true });
+            } catch (e) {}
+        };
+
+        // Multiplayer Room Operations (Strict Path: /artifacts/{appId}/public/data/rooms/{roomCode})
+        window.cloudSaveRoom = async function(roomCode, roomData) {
+            if (!db || !currentUser) {
+                localStorage.setItem('akunquiz_room_' + roomCode, JSON.stringify(roomData));
+                return true;
+            }
+            try {
+                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'rooms', roomCode), roomData, { merge: true });
+                return true;
+            } catch (e) {
+                localStorage.setItem('akunquiz_room_' + roomCode, JSON.stringify(roomData));
+                return true;
+            }
+        };
+
+        window.cloudGetRoom = async function(roomCode) {
+            if (db && currentUser) {
+                try {
+                    const snap = await getDoc(doc(db, 'artifacts', appId, 'public', 'data', 'rooms', roomCode));
+                    if (snap.exists()) return snap.data();
+                } catch (e) {}
+            }
+            const local = localStorage.getItem('akunquiz_room_' + roomCode);
+            return local ? JSON.parse(local) : null;
+        };
+
+        window.cloudJoinOrUpdatePlayer = async function(roomCode, playerId, playerPayload) {
+            if (db && currentUser) {
+                try {
+                    await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'rooms', roomCode), {
+                        [`players.${playerId}`]: playerPayload
+                    });
+                    return;
+                } catch (e) {}
+            }
+            const local = localStorage.getItem('akunquiz_room_' + roomCode);
+            if (local) {
+                const parsed = JSON.parse(local);
+                parsed.players = parsed.players || {};
+                parsed.players[playerId] = playerPayload;
+                localStorage.setItem('akunquiz_room_' + roomCode, JSON.stringify(parsed));
+                window.onRoomSnapshotUpdate(parsed);
+            }
+        };
+
+        window.cloudSubscribeRoom = function(roomCode) {
+            if (roomUnsubscribe) {
+                roomUnsubscribe();
+                roomUnsubscribe = null;
+            }
+            if (db && currentUser) {
+                roomUnsubscribe = onSnapshot(
+                    doc(db, 'artifacts', appId, 'public', 'data', 'rooms', roomCode),
+                    (snap) => {
+                        if (snap.exists()) {
+                            window.onRoomSnapshotUpdate(snap.data());
+                        }
+                    },
+                    (err) => {
+                        console.debug("Room listener error:", err);
+                    }
+                );
+            } else {
+                const interval = setInterval(() => {
+                    if (window.currentMabarRoomCode !== roomCode) {
+                        clearInterval(interval);
+                        return;
+                    }
+                    const local = localStorage.getItem('akunquiz_room_' + roomCode);
+                    if (local) window.onRoomSnapshotUpdate(JSON.parse(local));
+                }, 1500);
+                roomUnsubscribe = () => clearInterval(interval);
+            }
+        };
+
+        window.cloudUnsubscribeRoom = function() {
+            if (roomUnsubscribe) {
+                roomUnsubscribe();
+                roomUnsubscribe = null;
+            }
+        };
+    </script>
+
+    <!-- ==================== MAIN APPLICATION LOGIC ==================== -->
+    <script>
+        const apiKey = "";
+        const GEMINI_MODEL = "gemini-3-flash-preview";
+
+        // ==================== 8 CUTE ACCOUNTING KAWAII SVG AVATARS ====================
+        const CUTE_AVATARS = [
+            {
+                name: "🐱 Kucing Oren Kalkulator",
+                svg: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="#e0e7ff"/><polygon points="28,52 34,20 56,40" fill="#fb923c"/><polygon points="92,52 86,20 64,40" fill="#fb923c"/><polygon points="33,48 37,27 51,40" fill="#fed7aa"/><polygon points="87,48 83,27 69,40" fill="#fed7aa"/><ellipse cx="60" cy="68" rx="36" ry="30" fill="#fdba74"/><ellipse cx="60" cy="74" rx="22" ry="16" fill="#fff7ed"/><circle cx="46" cy="64" r="5.5" fill="#1e293b"/><circle cx="74" cy="64" r="5.5" fill="#1e293b"/><circle cx="48" cy="62" r="2" fill="#fff"/><circle cx="76" cy="62" r="2" fill="#fff"/><rect x="35" y="56" width="21" height="15" rx="5" fill="none" stroke="#4338ca" stroke-width="2.6"/><rect x="64" y="56" width="21" height="15" rx="5" fill="none" stroke="#4338ca" stroke-width="2.6"/><line x1="56" y1="63" x2="64" y2="63" stroke="#4338ca" stroke-width="2.6"/><ellipse cx="37" cy="74" rx="5" ry="3" fill="#fda4af" opacity="0.85"/><ellipse cx="83" cy="74" rx="5" ry="3" fill="#fda4af" opacity="0.85"/><polygon points="57,72 63,72 60,76" fill="#f43f5e"/><path d="M54,79 Q60,84 66,79" stroke="#1e293b" stroke-width="2.2" fill="none" stroke-linecap="round"/><polygon points="48,103 60,97 60,109" fill="#4f46e5"/><polygon points="72,103 60,97 60,109" fill="#4f46e5"/><circle cx="60" cy="103" r="3" fill="#facc15"/></svg>`)
+            },
+            {
+                name: "🐼 Panda Gemoy Buku Besar",
+                svg: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="#d1fae5"/><circle cx="32" cy="34" r="14" fill="#1e293b"/><circle cx="88" cy="34" r="14" fill="#1e293b"/><ellipse cx="60" cy="65" rx="36" ry="30" fill="#ffffff"/><ellipse cx="44" cy="61" rx="10" ry="12" transform="rotate(-15 44 61)" fill="#1e293b"/><ellipse cx="76" cy="61" rx="10" ry="12" transform="rotate(15 76 61)" fill="#1e293b"/><circle cx="45" cy="60" r="4" fill="#ffffff"/><circle cx="75" cy="60" r="4" fill="#ffffff"/><circle cx="46" cy="59" r="1.6" fill="#0f172a"/><circle cx="76" cy="59" r="1.6" fill="#0f172a"/><ellipse cx="35" cy="73" rx="5.5" ry="3.2" fill="#fda4af"/><ellipse cx="85" cy="73" rx="5.5" ry="3.2" fill="#fda4af"/><ellipse cx="60" cy="72" rx="5" ry="3.5" fill="#1e293b"/><path d="M53,78 Q60,84 67,78" stroke="#1e293b" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="38" y="88" width="44" height="20" rx="4" fill="#059669"/><line x1="60" y1="88" x2="60" y2="108" stroke="#a7f3d0" stroke-width="2"/><text x="44" y="101" fill="#ffffff" font-size="9" font-weight="bold">DR</text><text x="65" y="101" fill="#ffffff" font-size="9" font-weight="bold">CR</text></svg>`)
+            },
+            {
+                name: "🐰 Kelinci Topi Wisuda",
+                svg: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="#fce7f3"/><ellipse cx="42" cy="36" rx="8" ry="22" fill="#ffffff"/><ellipse cx="78" cy="36" rx="8" ry="22" fill="#ffffff"/><ellipse cx="42" cy="37" rx="4" ry="15" fill="#fbcfe8"/><ellipse cx="78" cy="37" rx="4" ry="15" fill="#fbcfe8"/><ellipse cx="60" cy="73" rx="34" ry="28" fill="#ffffff"/><circle cx="47" cy="69" r="5" fill="#1e293b"/><circle cx="73" cy="69" r="5" fill="#1e293b"/><circle cx="48.5" cy="67.5" r="2" fill="#ffffff"/><circle cx="74.5" cy="67.5" r="2" fill="#ffffff"/><ellipse cx="37" cy="77" rx="5" ry="3" fill="#f9a8d4"/><ellipse cx="83" cy="77" rx="5" ry="3" fill="#f9a8d4"/><polygon points="57,76 63,76 60,79.5" fill="#ec4899"/><path d="M54,82 Q57,86 60,82 Q63,86 66,82" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round"/><polygon points="60,24 34,35 60,45 86,35" fill="#1e1b4b"/><line x1="82" y1="36" x2="82" y2="50" stroke="#facc15" stroke-width="2.5"/></svg>`)
+            },
+            {
+                name: "🐻 Beruang Kopi Lembur Audit",
+                svg: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="#fef3c7"/><circle cx="32" cy="38" r="13" fill="#92400e"/><circle cx="88" cy="38" r="13" fill="#92400e"/><circle cx="32" cy="38" r="7" fill="#fcd34d"/><circle cx="88" cy="38" r="7" fill="#fcd34d"/><ellipse cx="60" cy="66" rx="36" ry="30" fill="#b45309"/><ellipse cx="60" cy="74" rx="17" ry="13" fill="#fde68a"/><circle cx="46" cy="61" r="4.8" fill="#1e293b"/><circle cx="74" cy="61" r="4.8" fill="#1e293b"/><circle cx="47.5" cy="59.5" r="1.8" fill="#fff"/><circle cx="75.5" cy="59.5" r="1.8" fill="#fff"/><ellipse cx="60" cy="71" rx="5" ry="3.8" fill="#451a03"/><path d="M54,78 Q60,83 66,78" stroke="#451a03" stroke-width="2.2" fill="none" stroke-linecap="round"/><rect x="72" y="84" width="22" height="22" rx="5" fill="#ffffff" stroke="#78350f" stroke-width="2"/><path d="M94,89 Q101,89 101,95 Q101,101 94,101" fill="none" stroke="#78350f" stroke-width="2.5"/><path d="M78,79 Q80,74 78,70" stroke="#92400e" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`)
+            },
+            {
+                name: "🦊 Rubah Cerdik Koin Emas",
+                svg: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="#ffe4e6"/><polygon points="24,56 32,18 54,42" fill="#e11d48"/><polygon points="96,56 88,18 66,42" fill="#e11d48"/><ellipse cx="60" cy="67" rx="35" ry="29" fill="#f43f5e"/><path d="M26,67 Q44,71 60,83 Q76,71 94,67 Q88,95 60,96 Q32,95 26,67 Z" fill="#ffffff"/><circle cx="46" cy="63" r="4.8" fill="#1e293b"/><circle cx="74" cy="63" r="4.8" fill="#1e293b"/><circle cx="47.5" cy="61.5" r="1.8" fill="#fff"/><circle cx="75.5" cy="61.5" r="1.8" fill="#fff"/><ellipse cx="60" cy="77" rx="4.5" ry="3.2" fill="#1e293b"/><path d="M54,83 Q60,87 66,83" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="88" cy="94" r="13" fill="#facc15" stroke="#ca8a04" stroke-width="2.5"/><text x="83.5" y="99" fill="#854d0e" font-size="14" font-weight="bold">$</text></svg>`)
+            },
+            {
+                name: "🐧 Pinguin Dasi Kupu-kupu",
+                svg: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="#e0f2fe"/><ellipse cx="60" cy="68" rx="34" ry="32" fill="#1e293b"/><path d="M36,66 Q48,52 60,62 Q72,52 84,66 Q84,94 60,96 Q36,94 36,66 Z" fill="#ffffff"/><circle cx="47" cy="65" r="4.5" fill="#0f172a"/><circle cx="73" cy="65" r="4.5" fill="#0f172a"/><circle cx="48.5" cy="63.5" r="1.7" fill="#fff"/><circle cx="74.5" cy="63.5" r="1.7" fill="#fff"/><polygon points="53,73 67,73 60,81" fill="#f59e0b"/><ellipse cx="38" cy="73" rx="4.5" ry="2.8" fill="#fda4af"/><ellipse cx="82" cy="73" rx="4.5" ry="2.8" fill="#fda4af"/><polygon points="46,96 60,90 60,102" fill="#0284c7"/><polygon points="74,96 60,90 60,102" fill="#0284c7"/><circle cx="60" cy="96" r="3" fill="#fde047"/></svg>`)
+            },
+            {
+                name: "🐹 Hamster Pipi Gembul",
+                svg: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="#ffedd5"/><circle cx="34" cy="40" r="12" fill="#fb923c"/><circle cx="86" cy="40" r="12" fill="#fb923c"/><circle cx="34" cy="40" r="6" fill="#fed7aa"/><circle cx="86" cy="40" r="6" fill="#fed7aa"/><ellipse cx="60" cy="69" rx="38" ry="31" fill="#fdba74"/><ellipse cx="60" cy="75" rx="26" ry="21" fill="#ffffff"/><circle cx="46" cy="62" r="5" fill="#1e293b"/><circle cx="74" cy="62" r="5" fill="#1e293b"/><circle cx="47.5" cy="60.5" r="2" fill="#ffffff"/><circle cx="75.5" cy="60.5" r="2" fill="#ffffff"/><ellipse cx="34" cy="73" rx="7" ry="4.5" fill="#fda4af"/><ellipse cx="86" cy="73" rx="7" ry="4.5" fill="#fda4af"/><polygon points="57,71 63,71 60,75" fill="#f43f5e"/><path d="M53,78 Q57,83 60,78 Q63,83 67,78" stroke="#1e293b" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>`)
+            },
+            {
+                name: "🐥 Bebek Helm Audit",
+                svg: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="#ecfccb"/><ellipse cx="60" cy="72" rx="35" ry="30" fill="#fde047"/><circle cx="46" cy="66" r="4.8" fill="#1e293b"/><circle cx="74" cy="66" r="4.8" fill="#1e293b"/><circle cx="47.5" cy="64.5" r="1.8" fill="#fff"/><circle cx="75.5" cy="64.5" r="1.8" fill="#fff"/><ellipse cx="36" cy="74" rx="5" ry="3" fill="#fb7185"/><ellipse cx="84" cy="74" rx="5" ry="3" fill="#fb7185"/><ellipse cx="60" cy="77" rx="12" ry="6.5" fill="#f97316"/><path d="M51,77 Q60,81 69,77" stroke="#9a3412" stroke-width="1.8" fill="none"/><path d="M30,48 Q60,22 90,48 Z" fill="#38bdf8"/><rect x="26" y="46" width="68" height="6" rx="3" fill="#0284c7"/></svg>`)
+            }
+        ];
+
+        // ==================== COMPREHENSIVE NATIONAL & INTERNATIONAL ACCOUNTING CATALOG ====================
+        const ACCOUNTING_CATALOG = [
+            // 1. Dasar & Keuangan
+            { cat: "Dasar & Keuangan", title: "Pengantar Akuntansi 1", desc: "Persamaan dasar akuntansi, siklus perusahaan jasa, jurnal umum, buku besar, neraca saldo, & laporan keuangan dasar." },
+            { cat: "Dasar & Keuangan", title: "Pengantar Akuntansi 2", desc: "Perusahaan dagang, jurnal khusus, persediaan, kas kecil, piutang, aset tetap dasar, & jurnal penutup." },
+            { cat: "Dasar & Keuangan", title: "Akuntansi Keuangan Menengah 1", desc: "Kas & rekonsiliasi bank, piutang wesel, persediaan (FIFO/Average/LCNRV), & aset tetap (PSAK 16 / IAS 16)." },
+            { cat: "Dasar & Keuangan", title: "Akuntansi Keuangan Menengah 2", desc: "Liabilitas jangka panjang, obligasi, ekuitas perseroan, laba per saham (EPS), investasi, & arus kas." },
+            { cat: "Dasar & Keuangan", title: "Akuntansi Keuangan Lanjutan 1 & 2", desc: "Kombinasi bisnis, laporan keuangan konsolidasian, transaksi antarperusahaan, valuta asing, & likuidasi." },
+            { cat: "Dasar & Keuangan", title: "Teori Akuntansi", desc: "Kerangka konseptual pelaporan keuangan, konsep pengakuan, pengukuran aset/liabilitas, & hipotesis pasar efisien." },
+            { cat: "Dasar & Keuangan", title: "Analisis Laporan Keuangan", desc: "Rasio likuiditas, solvabilitas, profitabilitas, aktivitas, DuPont Analysis, & valuasi kinerja perusahaan." },
+
+            // 2. Sektor Publik, Pemerintahan & Desa
+            { cat: "Sektor Publik & Desa", title: "Akuntansi Keuangan Desa (Siskeudes & Permendagri)", desc: "Pengelolaan APBDes, siklus perencanaan, pelaksanaan, penatausahaan, pelaporan, SISKEUDES, & regulasi keuangan desa." },
+            { cat: "Sektor Publik & Desa", title: "Akuntansi Sektor Publik", desc: "Penganggaran publik, akuntansi dana, organisasi nirlaba / entitas berorientasi nonlaba, rumah sakit, & perguruan tinggi." },
+            { cat: "Sektor Publik & Desa", title: "Akuntansi Pemerintahan (SAP Akrual)", desc: "Standar Akuntansi Pemerintahan (SAP) berbasis Akrual & Kas, LRA, LO, LPE, Neraca Pemda/Pusat, & jurnal anggaran." },
+            { cat: "Sektor Publik & Desa", title: "Audit Organisasi Publik", desc: "Audit keuangan negara/daerah, audit kinerja (3E: Ekonomis, Efisien, Efektif), audit kepatuhan, & SPKN BPK." },
+            { cat: "Sektor Publik & Desa", title: "Pengadaan Barang dan Jasa Pemerintah (Perpres PBJ)", desc: "Tata kelola PBJ pemerintah & organisasi, penyusunan HPS, metode pemilihan, kontrak, serta pencatatan aset & beban." },
+
+            // 3. Biaya & Manajemen
+            { cat: "Biaya & Manajemen", title: "Akuntansi Biaya", desc: "Harga pokok pesanan (Job Order Costing), harga pokok proses (Process Costing), BOP, & biaya produk bersama." },
+            { cat: "Biaya & Manajemen", title: "Manajemen Biaya (Cost Management)", desc: "Activity-Based Costing (ABC), Target Costing, Kaizen Costing, Life-Cycle Costing, & analisis rantai nilai." },
+            { cat: "Biaya & Manajemen", title: "Akuntansi Manajemen", desc: "Analisis Cost-Volume-Profit (BEP), pengambilan keputusan taktis, biaya standar, & Balanced Scorecard." },
+            { cat: "Biaya & Manajemen", title: "Penganggaran Perusahaan (Budgeting)", desc: "Anggaran induk (Master Budget), anggaran penjualan, produksi, kas, fleksibel, & analisis varians anggaran." },
+
+            // 4. Teknologi, Sistem & Digital
+            { cat: "Teknologi & Sistem", title: "Komputer Akuntansi 1 (MYOB / Accurate)", desc: "Setup database perusahaan, daftar akun, saldo awal, pencatatan transaksi kas/piutang/utang/persediaan, & laporan." },
+            { cat: "Teknologi & Sistem", title: "Komputer Akuntansi 2 (ERP / SAP Dasar)", desc: "Integrasi modul ERP, otomasi jurnal & rekonsiliasi, pivot & formula akuntansi lanjutan, serta pelaporan terintegrasi." },
+            { cat: "Teknologi & Sistem", title: "Akuntansi Digital & Big Data", desc: "Cloud accounting, otomatisasi pencatatan transaksi, XBRL pelaporan digital, & audit berbasis analisis data." },
+            { cat: "Teknologi & Sistem", title: "Sistem Informasi Akuntansi (SIA)", desc: "Siklus bisnis (pendapatan, pengeluaran, produksi, SDM), DFD/flowchart, dan pengendalian internal COSO." },
+            { cat: "Teknologi & Sistem", title: "Sistem Informasi Manajemen (SIM)", desc: "Sistem pendukung keputusan (DSS), tata kelola TI perusahaan, integrasi data manajemen, & intelijen bisnis." },
+            { cat: "Teknologi & Sistem", title: "Teknologi Keuangan (FinTech, RegTech & Aset Kripto)", desc: "E-Wallet, Payment Gateway, P2P Lending, RegTech, blockchain, triple-entry accounting, & perlakuan akuntansi aset kripto." },
+
+            // 5. Audit, Pajak & Syariah
+            { cat: "Audit, Pajak & Syariah", title: "Auditing & Asurans 1 & 2", desc: "Standar Profesional Akuntan Publik (SPAP), materialitas, risiko audit, pengujian pengendalian, substantif, & opini audit." },
+            { cat: "Audit, Pajak & Syariah", title: "Audit Forensik & Investigatif", desc: "Pencegahan & pendeteksian fraud (Fraud Triangle), audit investigatif, penelusuran aset, & penghitungan kerugian." },
+            { cat: "Audit, Pajak & Syariah", title: "Perpajakan 1 & 2 (PPh, PPN, KUP)", desc: "Ketentuan Umum Perpajakan (KUP), PPh Pasal 21/22/23/25/29, PPh Final, PPN, & tata cara pelaporan SPT." },
+            { cat: "Audit, Pajak & Syariah", title: "Akuntansi Perpajakan", desc: "Rekonsiliasi fiskal (koreksi positif/negatif), pajak tangguhan (PSAK 46), serta pencatatan jurnal pemotongan & pemungutan pajak." },
+            { cat: "Audit, Pajak & Syariah", title: "Akuntansi Syariah (PSAK Syariah)", desc: "Akuntansi transaksi akad Murabahah, Salam, Istishna, Mudharabah, Musyarakah, Ijarah, serta Zakat & Wakaf." },
+
+            // 6. Standar Nasional & Internasional
+            { cat: "Standar Nasional & Global", title: "SAK Umum (PSAK)", desc: "Pernyataan Standar Akuntansi Keuangan (PSAK) konvergensi IFRS untuk entitas berakuntabilitas publik di Indonesia." },
+            { cat: "Standar Nasional & Global", title: "SAK EMKM & SAK EP", desc: "Standar Akuntansi Keuangan Entitas Mikro, Kecil, dan Menengah (SAK EMKM) serta Entitas Privat (SAK EP)." },
+            { cat: "Standar Nasional & Global", title: "IFRS (International Financial Reporting Standards)", desc: "Standar pelaporan keuangan global (IAS/IFRS), pengakuan pendapatan IFRS 15, sewa IFRS 16, & instrumen keuangan IFRS 9." },
+            { cat: "Standar Nasional & Global", title: "US GAAP", desc: "Generally Accepted Accounting Principles Amerika Serikat (FASB ASC), perbedaan metode persediaan LIFO, & revaluasi aset." },
+            { cat: "Standar Nasional & Global", title: "IPSAS (International Public Sector Accounting Standards)", desc: "Standar akuntansi sektor publik internasional berbasis akrual untuk pemerintah dan organisasi internasional." },
+            { cat: "Standar Nasional & Global", title: "Akuntansi Internasional & Multinasional", desc: "Translasi laporan keuangan mata uang asing, transfer pricing internasional, harmonisasi standar, & perpajakan lintas negara." },
+            { cat: "Standar Nasional & Global", title: "ESG & Sustainability Accounting (IFRS S1/S2)", desc: "Pelaporan keberlanjutan (ISSB IFRS S1 & S2 / GRI), akuntansi lingkungan, emisi karbon, & pengungkapan risiko iklim." }
+        ];
+
+        // ==================== HIGH-QUALITY FALLBACK QUESTION BANK (GUARANTEES 100% PLAYABILITY) ====================
+        const FALLBACK_QUESTIONS = [
+            {
+                question: "Pada tanggal 1 Oktober 2025, PT Sejahtera membayar sewa gedung sebesar Rp 24.000.000 untuk masa 1 tahun dan dicatat pada akun 'Sewa Dibayar Dimuka'. Berapakah beban sewa yang harus diakui pada jurnal penyesuaian tanggal 31 Desember 2025?",
+                options: ["Rp 6.000.000", "Rp 18.000.000", "Rp 2.000.000", "Rp 24.000.000"],
+                correctIndex: 0,
+                explanation: "Karena dicatat sebagai aset (Sewa Dibayar Dimuka), kita menghitung bagian yang sudah terpakai dari 1 Oktober hingga 31 Desember 2025 yaitu selama 3 bulan.\nPerhitungan: 3/12 x Rp 24.000.000 = Rp 6.000.000.\n\n| Tanggal | Keterangan / Akun | Debit (Rp) | Kredit (Rp) |\n|---|---|---|---|\n| 31 Des 2025 | Beban Sewa | 6.000.000 | - |\n| 31 Des 2025 | Sewa Dibayar Dimuka | - | 6.000.000 |"
+            },
+            {
+                question: "Dalam siklus Akuntansi Keuangan Desa sesuai Permendagri No. 20 Tahun 2018, dokumen anggaran tahunan pemerintahan desa yang disepakati bersama oleh Kepala Desa dan BPD disebut...",
+                options: ["APBDes (Anggaran Pendapatan dan Belanja Desa)", "RKPD (Rencana Kerja Pemerintah Daerah)", "DIPA (Daftar Isian Pelaksanaan Anggaran)", "KUA-PPAS Desa"],
+                correctIndex: 0,
+                explanation: "APBDes adalah rencana keuangan tahunan pemerintahan desa yang dibahas dan disetujui bersama oleh Pemerintah Desa dan Badan Permusyawaratan Desa (BPD), serta ditetapkan dengan Peraturan Desa.\n\nSumber Referensi Terpercaya: Permendagri No. 20 Tahun 2018 tentang Pengelolaan Keuangan Desa & Modul Aplikasi Siskeudes BPKP."
+            },
+            {
+                question: "Manakah dari kelompok akun berikut yang seluruhnya memiliki saldo normal di sisi KREDIT?",
+                options: ["Utang Usaha, Modal Saham, dan Pendapatan Jasa", "Kas, Piutang Usaha, dan Beban Gaji", "Perlengkapan, Prive, dan Akumulasi Penyusutan", "Beban Sewa, Utang Wesel, dan Penjualan"],
+                correctIndex: 0,
+                explanation: "Berdasarkan persamaan dasar akuntansi (Aset = Liabilitas + Ekuitas), kelompok akun bersaldo normal Kredit meliputi Liabilitas (Utang Usaha), Ekuitas (Modal Saham), dan Pendapatan (Pendapatan Jasa).\n\n| Kelompok Akun | Bertambah | Berkurang | Saldo Normal |\n|---|---|---|---|\n| Aset & Beban | Debit | Kredit | Debit |\n| Liabilitas, Ekuitas & Pendapatan | Kredit | Debit | Kredit |"
+            },
+            {
+                question: "Dalam Akuntansi Biaya, metode pembebanan biaya overhead pabrik berdasarkan aktivitas-aktivitas pemicu biaya (cost drivers) yang lebih akurat dibandingkan tarif tunggal disebut...",
+                options: ["Activity-Based Costing (ABC)", "Process Costing", "Variable Costing", "Standard Absorption Costing"],
+                correctIndex: 0,
+                explanation: "Activity-Based Costing (ABC) mengidentifikasi aktivitas di dalam organisasi dan membebankan biaya setiap aktivitas ke produk/jasa berdasarkan konsumsi aktual pemicu biayanya (cost driver).\n\nSumber Referensi Terpercaya: Horngren's Cost Accounting: A Managerial Emphasis."
+            },
+            {
+                question: "Berdasarkan standar pelaporan keuangan internasional IFRS 15 (dan PSAK 72), kapan entitas mengakui pendapatan dari kontrak dengan pelanggan?",
+                options: ["Ketika entitas telah memenuhi kewajiban pelaksanaan dengan mengalihkan pengendalian barang atau jasa kepada pelanggan", "Segera setelah kontrak ditandatangani meskipun barang belum dikirim", "Hanya pada saat seluruh kas diterima secara tunai di rekening bank", "Pada akhir tahun buku tanpa memperhatikan pengiriman barang"],
+                correctIndex: 0,
+                explanation: "Model 5 langkah IFRS 15 / PSAK 72 menetapkan bahwa pendapatan diakui ketika (atau selama) entitas menyelesaikan kewajiban pelaksanaan dengan mentransfer pengendalian atas barang atau jasa yang dijanjikan kepada pelanggan."
+            }
+        ];
+
+        // ==================== CLEAN CONTENT PARSER (NO RAW **, NO #, REAL HTML TABLES) ====================
+        function formatCleanContent(rawText) {
+            if (!rawText) return "";
+            const lines = String(rawText).split('\n');
+            let htmlOutput = [];
+            let tableBuffer = [];
+
+            const flushTable = () => {
+                if (tableBuffer.length === 0) return;
+                const validRows = tableBuffer.filter(row => !/^\|?[\s:-]+\|[\s|:-]*$/.test(row.trim()));
+                if (validRows.length > 0) {
+                    let tableHtml = `<div class="ai-table-wrapper"><table class="ai-real-table">`;
+                    validRows.forEach((row, rIdx) => {
+                        let cells = row.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+                        if (rIdx === 0) {
+                            tableHtml += `<thead><tr>${cells.map(c => `<th>${formatInlineText(c)}</th>`).join('')}</tr></thead><tbody>`;
+                        } else {
+                            tableHtml += `<tr>${cells.map(c => {
+                                const plain = c.replace(/\*\*/g, '').trim();
+                                const isNumeric = /^(Rp\.?\s*)?[\d.,]+(\s*%)?$/.test(plain) && plain !== '-';
+                                return `<td class="${isNumeric ? 'num-cell' : ''}">${formatInlineText(c)}</td>`;
+                            }).join('')}</tr>`;
+                        }
+                    });
+                    tableHtml += `</tbody></table></div>`;
+                    htmlOutput.push(tableHtml);
+                }
+                tableBuffer = [];
+            };
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const trimmed = line.trim();
+
+                // Detect Markdown Table rows
+                if ((trimmed.startsWith('|') && trimmed.endsWith('|')) || (trimmed.split('|').length >= 3 && !trimmed.startsWith('http'))) {
+                    tableBuffer.push(trimmed);
+                    continue;
+                } else {
+                    flushTable();
+                }
+
+                if (trimmed === '') {
+                    htmlOutput.push('<div class="h-2"></div>');
+                    continue;
+                }
+
+                // Convert markdown headings (#, ##, ###) into clean bold subheadings without '#'
+                const headingMatch = trimmed.match(/^#{1,6}\s+(.*)$/);
+                if (headingMatch) {
+                    htmlOutput.push(`<div class="font-display font-bold text-primary-700 text-sm sm:text-base pt-2 pb-0.5">${formatInlineText(headingMatch[1])}</div>`);
+                    continue;
+                }
+
+                // Numbered list items (1. , 2. )
+                const numMatch = trimmed.match(/^(\d+\.)\s+(.*)$/);
+                if (numMatch) {
+                    htmlOutput.push(`<div class="flex items-start gap-2 pl-1"><span class="font-mono font-bold text-primary-600 text-xs mt-0.5">${numMatch[1]}</span><span>${formatInlineText(numMatch[2])}</span></div>`);
+                    continue;
+                }
+
+                // Bullet points (- or *)
+                const bulletMatch = trimmed.match(/^[-*•]\s+(.*)$/);
+                if (bulletMatch) {
+                    htmlOutput.push(`<div class="flex items-start gap-2 pl-1"><span class="text-primary-600 font-bold mt-0.5">•</span><span>${formatInlineText(bulletMatch[1])}</span></div>`);
+                    continue;
+                }
+
+                htmlOutput.push(`<div>${formatInlineText(line)}</div>`);
+            }
+            flushTable();
+            return htmlOutput.join('');
+        }
+
+        function formatInlineText(str) {
+            let safe = str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            // Convert **bold** into clean <strong>
+            safe = safe.replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-ink">$1</strong>');
+            // Convert *italic* into clean <em>
+            safe = safe.replace(/\*([^*]+?)\*/g, '<em class="italic">$1</em>');
+            // Strip any stray double asterisks or hash symbols (#)
+            safe = safe.replace(/\*\*/g, '').replace(/(^|\s)#+(\s|$)/g, '$1$2').replace(/^#+\s*/g, '');
+            // Inline code `...`
+            safe = safe.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 bg-primary-50 text-primary-700 rounded font-mono text-xs font-semibold">$1</code>');
+            return safe;
+        }
+
+        // ==================== APP STATE ====================
+        let state = {
+            user: {
+                nickname: "Sobat Akun",
+                email: "",
+                quizLevel: "siswa",
+                emailNotif: true,
+                avatar: CUTE_AVATARS[0].svg,
+                avatarIndex: 0,
+                theme: "indigo",
+                lang: "id"
+            },
+            flame: {
+                streakCount: 1,
+                lastActiveDate: null,
+                isAliveToday: false
+            },
+            quiz: {
+                topic: "",
+                targetTotal: 10,
+                questions: [],
+                currentIndex: 0,
+                score: 0,
+                streak: 0,
+                maxStreak: 0,
+                correctCount: 0,
+                timeLeft: 60,
+                timerInterval: null,
+                isAnswered: false,
+                isFetchingMore: false,
+                userAnswers: []
+            },
+            mabar: {
+                roomCode: null,
+                isHost: false,
+                roomData: null,
+                hasStartedMatch: false
+            },
+            soundEnabled: true,
+            catalogCategory: "Semua Rumpun",
+            englishFilter: "All",
+            boardFilter: "Semua",
+            profHistory: [],
+            boardPosts: [
+                {
+                    id: 101,
+                    author: "Nadia",
+                    category: "Siswa/i",
+                    time: "1 jam lalu",
+                    title: "Bingung bedain Beban Dibayar Dimuka pendekatan Neraca vs Laba Rugi!",
+                    content: "Guys, kalau di Neraca Saldo tertulis 'Sewa Dibayar Dimuka Rp 12.000.000' untuk 1 tahun mulai 1 Oktober, pas 31 Desember jurnal penyesuaiannya gimana ya biar nggak ketuker?",
+                    likes: 18,
+                    replies: [
+                        {
+                            author: "Prof. Akun 🧑‍🏫",
+                            isAI: true,
+                            time: "45 mnt lalu",
+                            text: "Halo Nadia! Trik anti-ketuker ala Prof. Akun gampang banget: Cek nama akun di Neraca Saldo!\n\nKarena di Neraca Saldo namanya Sewa Dibayar Dimuka (kelompok Harta/Neraca), berarti kita pakai Pendekatan Neraca. Cari yang SUDAH terpakai (jadi beban) selama Okt–Des (3 bulan = 3/12 x Rp 12.000.000 = Rp 3.000.000).\n\n| Tanggal | Keterangan / Akun | Debit (Rp) | Kredit (Rp) |\n|---|---|---|---|\n| 31 Des | Beban Sewa | 3.000.000 | - |\n| 31 Des | Sewa Dibayar Dimuka | - | 3.000.000 |\n\nSumber Referensi Terpercaya: SAK EMKM Bab 4 & Warren, Reeve, Duchac — Accounting (Adjusting Process)."
+                        }
+                    ]
+                }
+            ]
+        };
+
+        window.currentMabarRoomCode = null;
+
+        // ==================== ACCOUNTING ENGLISH DICTIONARY ====================
+        const ACCOUNTING_ENGLISH_TERMS = [
+            { en: "Accounts Receivable", id: "Piutang Usaha", cat: "Assets & Liabilities", phon: "/əˈkaʊnts rɪˈsiːvəbl/", def: "Money owed to a company by its customers for goods or services delivered on credit.", journal: "(D) Accounts Receivable $500 / (K) Service Revenue $500" },
+            { en: "Accounts Payable", id: "Utang Usaha", cat: "Assets & Liabilities", phon: "/əˈkaʊnts ˈpeɪəbl/", def: "Short-term debt a company owes to suppliers or creditors for purchases made on credit.", journal: "(D) Inventory $1,200 / (K) Accounts Payable $1,200" },
+            { en: "Accrued Expenses", id: "Beban yang Masih Harus Dibayar", cat: "Assets & Liabilities", phon: "/əˈkruːd ɪkˈspensɪz/", def: "Expenses recognized on the books before they have been paid (e.g., accrued salaries).", journal: "(D) Salaries Expense $800 / (K) Salaries Payable $800" },
+            { en: "Prepaid Expenses", id: "Beban Dibayar Dimuka", cat: "Assets & Liabilities", phon: "/ˌpriːˈpeɪd ɪkˈspensɪz/", def: "Future expenses paid in advance, recorded initially as current assets.", journal: "(D) Prepaid Insurance $600 / (K) Cash $600" },
+            { en: "Depreciation", id: "Penyusutan Aset Tetap", cat: "Income Statement", phon: "/dɪˌpriːʃiˈeɪʃn/", def: "Systematic allocation of the cost of a tangible fixed asset over its useful life.", journal: "(D) Depreciation Expense $250 / (K) Accumulated Depreciation $250" },
+            { en: "Cost of Goods Sold (COGS)", id: "Harga Pokok Penjualan (HPP)", cat: "Income Statement", phon: "/kɒst əv ɡʊdz səʊld/", def: "Direct costs attributable to the production or purchase of the goods sold by a company.", journal: "(D) Cost of Goods Sold $400 / (K) Merchandise Inventory $400" },
+            { en: "Retained Earnings", id: "Saldo Laba / Laba Ditahan", cat: "Assets & Liabilities", phon: "/rɪˈteɪnd ˈɜːnɪŋz/", def: "Cumulative net income retained by a corporation rather than distributed as dividends.", journal: "(D) Income Summary $5,000 / (K) Retained Earnings $5,000" },
+            { en: "Trial Balance", id: "Neraca Saldo", cat: "Journals & Audit", phon: "/ˈtraɪəl ˈbæləns/", def: "A bookkeeping worksheet in which the balances of all ledgers are compiled into debit and credit columns.", journal: "Total Debits must equal Total Credits before adjustments." },
+            { en: "Allowance for Doubtful Accounts", id: "Cadangan Kerugian Piutang", cat: "Assets & Liabilities", phon: "/əˈlaʊəns fɔː ˈdaʊtfl əˈkaʊnts/", def: "A contra-asset account estimating the portion of accounts receivable that may become uncollectible.", journal: "(D) Bad Debt Expense $150 / (K) Allowance for Doubtful Accounts $150" }
+        ];
+
+        const OPTION_STYLES = [
+            { bg: "bg-quiz-blue", label: "A" },
+            { bg: "bg-quiz-teal", label: "B" },
+            { bg: "bg-quiz-yellow", label: "C" },
+            { bg: "bg-quiz-red", label: "D" }
+        ];
+
+        // ==================== INITIALIZATION & URL ROOM CHECK ====================
+        window.onload = function() {
+            lucide.createIcons();
+            loadLocalState();
+            evaluateDailyFlame();
+            applyUserToUI();
+            selectLevel(state.user.quizLevel || 'siswa');
+            renderCatalogCategories();
+            renderTopicCatalog();
+            renderEnglishCards();
+            renderBoardPosts();
+            initProfChatGreeting();
+
+            // Check if user opened an invite link with ?room=CODE
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const inviteRoom = params.get('room');
+                if (inviteRoom && inviteRoom.trim().length >= 4) {
+                    switchTab('mabar');
+                    document.getElementById('mabar-join-code').value = inviteRoom.trim().toUpperCase();
+                    setTimeout(() => joinMabarRoom(), 600);
+                }
+            } catch (e) {}
+        };
+
+        function getTodayStr() {
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        }
+
+        function loadLocalState() {
+            try {
+                const savedUser = localStorage.getItem('akunquiz_user_v4');
+                if (savedUser) state.user = { ...state.user, ...JSON.parse(savedUser) };
+                
+                const savedFlame = localStorage.getItem('akunquiz_flame_v4');
+                if (savedFlame) state.flame = { ...state.flame, ...JSON.parse(savedFlame) };
+            } catch (e) {}
+            setTheme(state.user.theme || 'indigo', false);
+        }
+
+        function saveLocalState() {
+            try {
+                localStorage.setItem('akunquiz_user_v4', JSON.stringify(state.user));
+                localStorage.setItem('akunquiz_flame_v4', JSON.stringify(state.flame));
+            } catch (e) {}
+        }
+
+        window.applyLoadedProfile = function(cloudData) {
+            if (!cloudData) return;
+            const { quizLevel, ...safeCloud } = cloudData;
+            state.user = { ...state.user, ...safeCloud };
+            setTheme(state.user.theme || 'indigo', false);
+            applyUserToUI();
+            saveLocalState();
+        };
+
+        // ==================== 1 HARI 1 API (DAILY FLAME) ====================
+        function evaluateDailyFlame() {
+            const today = getTodayStr();
+            const last = state.flame.lastActiveDate;
+
+            if (!last) {
+                state.flame.streakCount = 0;
+                state.flame.isAliveToday = false;
+            } else if (last === today) {
+                state.flame.isAliveToday = true;
+            } else {
+                const d1 = new Date(last);
+                const d2 = new Date(today);
+                const diffDays = Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
+                if (diffDays === 1) {
+                    state.flame.isAliveToday = false;
+                } else if (diffDays > 1) {
+                    state.flame.streakCount = 0;
+                    state.flame.isAliveToday = false;
+                }
+            }
+            updateFlameUI();
+        }
+
+        function igniteDailyFlame() {
+            const today = getTodayStr();
+            if (state.flame.lastActiveDate !== today) {
+                state.flame.streakCount = (state.flame.streakCount || 0) + 1;
+                state.flame.lastActiveDate = today;
+                state.flame.isAliveToday = true;
+                saveLocalState();
+                updateFlameUI();
+                showToast(`🔥 Api Harian Menyala! Streak kamu sekarang ${state.flame.streakCount} hari!`, "success");
+            }
+        }
+
+        function updateFlameUI() {
+            const iconEl = document.getElementById('nav-flame-icon');
+            const countEl = document.getElementById('nav-flame-count');
+            const statusEl = document.getElementById('nav-flame-status');
+            const bigIcon = document.getElementById('modal-flame-big-icon');
+            const daysModal = document.getElementById('modal-flame-days');
+            const todayBadge = document.getElementById('modal-flame-today-badge');
+
+            countEl.textContent = state.flame.streakCount;
+            daysModal.textContent = state.flame.streakCount;
+
+            if (state.flame.isAliveToday) {
+                iconEl.textContent = "🔥";
+                iconEl.classList.add('flame-alive');
+                statusEl.textContent = "Api Menyala!";
+                statusEl.className = "text-[9px] font-bold text-orange-600 hidden md:block";
+                bigIcon.textContent = "🔥";
+                todayBadge.textContent = "✅ Api Hari Ini Sudah Menyala!";
+                todayBadge.className = "inline-block mt-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-700 text-xs font-bold";
+            } else if (state.flame.streakCount > 0) {
+                iconEl.textContent = "🕯️";
+                iconEl.classList.remove('flame-alive');
+                statusEl.textContent = "Mainkan Hari Ini!";
+                statusEl.className = "text-[9px] font-bold text-amber-600 hidden md:block";
+                bigIcon.textContent = "🕯️";
+                todayBadge.textContent = "⚠️ Mainkan 1 kuis hari ini agar api tidak padam!";
+                todayBadge.className = "inline-block mt-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-700 text-xs font-bold";
+            } else {
+                iconEl.textContent = "🧊";
+                iconEl.classList.remove('flame-alive');
+                statusEl.textContent = "Api Padam";
+                statusEl.className = "text-[9px] font-bold text-slate-500 hidden md:block";
+                bigIcon.textContent = "🧊";
+                todayBadge.textContent = "❄️ Api Padam! Mainkan kuis untuk menyalakan kembali.";
+                todayBadge.className = "inline-block mt-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-700 text-xs font-bold";
+            }
+
+            const days = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+            const tracker = document.getElementById('flame-week-tracker');
+            const activeDots = Math.min(7, state.flame.streakCount);
+            tracker.innerHTML = days.map((d, idx) => {
+                const lit = idx < activeDots;
+                return `
+                    <div class="p-2 rounded-xl border ${lit ? 'bg-orange-500/15 border-orange-400 text-orange-600' : 'bg-surface border-line text-muted'} text-center">
+                        <div class="text-sm">${lit ? '🔥' : '⚪'}</div>
+                        <div class="text-[10px] font-bold mt-1">${d}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openFlameModal() {
+            updateFlameUI();
+            document.getElementById('modal-flame').classList.remove('hidden');
+        }
+        function closeFlameModal() {
+            document.getElementById('modal-flame').classList.add('hidden');
+        }
+
+        // ==================== THEME & LANGUAGE SWITCHER ====================
+        function toggleThemeDropdown() {
+            document.getElementById('theme-dropdown').classList.toggle('hidden');
+        }
+
+        function setTheme(themeName, notify = true) {
+            state.user.theme = themeName;
+            document.documentElement.setAttribute('data-theme', themeName);
+            document.getElementById('theme-dropdown').classList.add('hidden');
+            saveLocalState();
+            if (notify) showToast(`Tema warna diganti ke ${themeName.toUpperCase()}!`, "info");
+        }
+
+        function changeLanguage(lang) {
+            state.user.lang = lang;
+            saveLocalState();
+            const i18nMap = {
+                id: {
+                    nav_quiz: "Kuis AI",
+                    nav_mabar: "Mabar Teman",
+                    nav_english: "Accounting English",
+                    nav_forum: "Diskusi & Tugas",
+                    hero_title: "Latihan Soal Akuntansi AI Hingga 100 Soal!",
+                    hero_desc: "Pilih jenjang Siswa/i atau Mahasiswa/i, eksplorasi katalog lengkap akuntansi nasional & internasional, 1 menit per soal, atau undang teman lomba lintas perangkat!"
+                },
+                en: {
+                    nav_quiz: "AI Quiz",
+                    nav_mabar: "Multiplayer",
+                    nav_english: "Accounting English",
+                    nav_forum: "Discussion & Homework",
+                    hero_title: "AI Accounting Practice Up to 100 Questions!",
+                    hero_desc: "Choose High School or University level, explore complete national & international accounting topics, 1 minute per question, or invite friends to compete!"
+                },
+                bi: {
+                    nav_quiz: "Kuis AI / Quiz",
+                    nav_mabar: "Mabar / Battle",
+                    nav_english: "Accounting English",
+                    nav_forum: "Diskusi & Homework",
+                    hero_title: "Latihan Akuntansi AI (ID + EN) s/d 100 Soal!",
+                    hero_desc: "Bilingual Accounting Quiz & Multiplayer Hub: 1 menit per soal, istilah akuntansi Inggris-Indonesia, & pembahasan seru bareng Prof. Akun."
+                }
+            };
+            const dict = i18nMap[lang] || i18nMap.id;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.textContent = dict[key];
+            });
+            showToast(`Bahasa sistem diubah ke ${lang.toUpperCase()}`, "info");
+        }
+
+        // ==================== PROFILE, EMAIL & CUTE AVATAR CUSTOMIZER ====================
+        function applyUserToUI() {
+            document.getElementById('nav-nickname').textContent = state.user.nickname || "Sobat Akun";
+            document.getElementById('hero-nickname').textContent = state.user.nickname || "Sobat Akun";
+            document.getElementById('nav-avatar').src = state.user.avatar || CUTE_AVATARS[0].svg;
+            document.getElementById('lang-switcher').value = state.user.lang || 'id';
+        }
+
+        function openProfileModal() {
+            document.getElementById('prof-field-nickname').value = state.user.nickname || "";
+            document.getElementById('prof-field-email').value = state.user.email || "";
+            document.getElementById('prof-field-notif').checked = state.user.emailNotif !== false;
+            document.getElementById('modal-avatar-preview').src = state.user.avatar || CUTE_AVATARS[0].svg;
+
+            const currentLabel = CUTE_AVATARS[state.user.avatarIndex]?.name || "📸 Foto Profil Sendiri";
+            document.getElementById('avatar-character-label').textContent = currentLabel;
+
+            const grid = document.getElementById('free-avatar-grid');
+            grid.innerHTML = CUTE_AVATARS.map((item, i) => `
+                <button type="button" onclick="selectFreeAvatar(${i})" title="${item.name}"
+                    class="p-1.5 rounded-2xl border-2 ${state.user.avatarIndex === i ? 'border-primary-600 bg-primary-50' : 'border-line bg-card'} hover:border-primary-500 hover:scale-105 transition-all shadow-sm flex flex-col items-center">
+                    <img src="${item.svg}" class="w-14 h-14 rounded-xl object-cover">
+                    <span class="text-[9px] font-bold text-ink truncate w-full text-center mt-1">${item.name.split(' ').slice(1, 3).join(' ')}</span>
+                </button>
+            `).join('');
+
+            document.getElementById('modal-profile').classList.remove('hidden');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('modal-profile').classList.add('hidden');
+        }
+
+        function selectFreeAvatar(index) {
+            const chosen = CUTE_AVATARS[index];
+            document.getElementById('modal-avatar-preview').src = chosen.svg;
+            document.getElementById('avatar-character-label').textContent = chosen.name;
+            state.user.avatar = chosen.svg;
+            state.user.avatarIndex = index;
+            openProfileModal();
+        }
+
+        function randomizeFreeAvatar() {
+            const randIdx = Math.floor(Math.random() * CUTE_AVATARS.length);
+            selectFreeAvatar(randIdx);
+        }
+
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 160;
+                    canvas.height = 160;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, 160, 160);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                    state.user.avatar = dataUrl;
+                    state.user.avatarIndex = -1;
+                    document.getElementById('modal-avatar-preview').src = dataUrl;
+                    document.getElementById('avatar-character-label').textContent = "📸 Foto Profil Pribadi";
+                    showToast("Foto profil berhasil dimuat!", "success");
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function saveUserProfile() {
+            const nick = document.getElementById('prof-field-nickname').value.trim() || "Sobat Akun";
+            const email = document.getElementById('prof-field-email').value.trim();
+            const password = document.getElementById('prof-field-password').value;
+            const emailNotif = document.getElementById('prof-field-notif').checked;
+
+            state.user.nickname = nick;
+            state.user.email = email;
+            state.user.emailNotif = emailNotif;
+
+            saveLocalState();
+            applyUserToUI();
+            initProfChatGreeting();
+            closeProfileModal();
+
+            if (window.syncProfileToCloud) {
+                await window.syncProfileToCloud({ ...state.user, password });
+            }
+
+            if (email && emailNotif) {
+                showToast(`Profil ${nick} tersimpan! Pengingat Api Harian & info terbaru aktif untuk ${email}.`, "success");
+            } else {
+                showToast(`Halo ${nick}, profilmu berhasil diperbarui!`, "success");
+            }
+        }
+
+        // ==================== TAB NAVIGATION ====================
+        function switchTab(tabName) {
+            ['generator', 'quiz', 'summary', 'mabar', 'english', 'forum'].forEach(id => {
+                document.getElementById(`view-${id}`).classList.add('hidden');
+            });
+            document.querySelectorAll('.nav-pill').forEach(btn => {
+                btn.classList.remove('bg-primary-600', 'text-white', 'shadow-sm');
+                btn.classList.add('text-muted');
+            });
+
+            document.getElementById(`view-${tabName}`).classList.remove('hidden');
+            const activeNavKey = (tabName === 'quiz' || tabName === 'summary')
+                ? (state.mabar.roomCode ? 'mabar' : 'generator')
+                : tabName;
+            const navBtn = document.getElementById(`nav-${activeNavKey}`);
+            if (navBtn) {
+                navBtn.classList.add('bg-primary-600', 'text-white', 'shadow-sm');
+                navBtn.classList.remove('text-muted');
+            }
+            lucide.createIcons();
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const colors = {
+                info: 'bg-slate-900 text-white border-slate-700',
+                success: 'bg-emerald-600 text-white border-emerald-500',
+                error: 'bg-rose-600 text-white border-rose-500',
+                warning: 'bg-amber-500 text-white border-amber-400'
+            };
+            toast.className = `${colors[type]} px-4 py-3 rounded-2xl shadow-xl border text-xs sm:text-sm font-semibold pointer-events-auto transition-all duration-300`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3600);
+        }
+
+        // ==================== SOUND EFFECTS (WEB AUDIO API) ====================
+        function toggleSound() {
+            state.soundEnabled = !state.soundEnabled;
+            const btn = document.getElementById('btn-sound-toggle');
+            if (btn) {
+                btn.innerHTML = state.soundEnabled
+                    ? '<i data-lucide="volume-2" class="w-4 h-4"></i>'
+                    : '<i data-lucide="volume-x" class="w-4 h-4"></i>';
+                lucide.createIcons();
+            }
+            showToast(state.soundEnabled ? "Efek suara aktif" : "Efek suara dimatikan", "info");
+        }
+
+        function playTone(isCorrect) {
+            if (!state.soundEnabled) return;
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (isCorrect) {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
+                    osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2);
+                } else {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(240, ctx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(150, ctx.currentTime + 0.28);
+                }
+
+                gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.35);
+            } catch (e) {}
+        }
+
+        // ==================== GEMINI API WRAPPER WITH SAFE FALLBACK ====================
+        async function callGeminiAPI(payload, retries = 2) {
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(apiKey)}`;
+            for (let attempt = 0; attempt <= retries; attempt++) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) {
+                        const errText = await response.text().catch(() => "");
+                        throw new Error(`Gemini API HTTP ${response.status}: ${errText}`);
+                    }
+                    return await response.json();
+                } catch (err) {
+                    if (attempt === retries) throw err;
+                    await new Promise(r => setTimeout(r, 800 * (attempt + 1)));
+                }
+            }
+        }
+
+        // ==================== QUIZ GENERATOR & COMPLETE CATALOG ====================
+        function selectLevel(level) {
+            state.user.quizLevel = level;
+            saveLocalState();
+            const btnS = document.getElementById('btn-level-siswa');
+            const btnM = document.getElementById('btn-level-mahasiswa');
+            const chkS = document.getElementById('check-siswa');
+            const chkM = document.getElementById('check-mahasiswa');
+
+            if (level === 'siswa') {
+                btnS.className = "w-full p-4 rounded-2xl border-2 border-primary-600 bg-primary-50/70 text-left transition-all flex items-center gap-3.5 shadow-sm";
+                btnM.className = "w-full p-4 rounded-2xl border-2 border-line hover:border-primary-500 bg-card text-left transition-all flex items-center gap-3.5 shadow-sm";
+                chkS.classList.remove('hidden');
+                chkM.classList.add('hidden');
+            } else {
+                btnM.className = "w-full p-4 rounded-2xl border-2 border-primary-600 bg-primary-50/70 text-left transition-all flex items-center gap-3.5 shadow-sm";
+                btnS.className = "w-full p-4 rounded-2xl border-2 border-line hover:border-primary-500 bg-card text-left transition-all flex items-center gap-3.5 shadow-sm";
+                chkM.classList.remove('hidden');
+                chkS.classList.add('hidden');
+            }
+        }
+
+        function renderCatalogCategories() {
+            const categories = ["Semua Rumpun", ...new Set(ACCOUNTING_CATALOG.map(m => m.cat))];
+            const container = document.getElementById('catalog-category-tabs');
+            container.innerHTML = categories.map(cat => {
+                const active = state.catalogCategory === cat;
+                return `
+                    <button type="button" onclick="setCatalogCategory('${cat}')"
+                        class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${active ? 'bg-primary-600 text-white shadow-sm' : 'bg-surface border border-line text-muted hover:text-ink'}">
+                        ${cat}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function setCatalogCategory(cat) {
+            state.catalogCategory = cat;
+            renderCatalogCategories();
+            renderTopicCatalog();
+        }
+
+        function renderTopicCatalog() {
+            const q = (document.getElementById('catalog-search')?.value || '').toLowerCase();
+            const filtered = ACCOUNTING_CATALOG.filter(item => {
+                const matchCat = state.catalogCategory === "Semua Rumpun" || item.cat === state.catalogCategory;
+                const matchText = item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q);
+                return matchCat && matchText;
+            });
+
+            const badge = document.getElementById('catalog-count-badge');
+            if (badge) badge.textContent = `${filtered.length} Materi`;
+
+            const presets = document.getElementById('topic-presets');
+            presets.innerHTML = filtered.map(item => `
+                <button type="button" onclick="pickCatalogTopic('${item.title.replace(/'/g, "\\'")}')"
+                    class="p-3.5 rounded-2xl text-left bg-surface hover:bg-primary-50/80 border border-line hover:border-primary-500 transition-all group space-y-1 shadow-sm">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="font-bold text-xs sm:text-sm text-ink group-hover:text-primary-700">${item.title}</span>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-card border border-line text-muted shrink-0">${item.cat.split(' ')[0]}</span>
+                    </div>
+                    <p class="text-[11px] text-muted line-clamp-2 leading-relaxed">${item.desc}</p>
+                </button>
+            `).join('');
+        }
+
+        function pickCatalogTopic(title) {
+            const inp = document.getElementById('input-topic');
+            inp.value = title;
+            document.getElementById('mabar-topic-input').value = title;
+            inp.focus();
+            showToast(`Materi dipilih: ${title}`, "info");
+        }
+
+        function createMabarFromCurrentTopic() {
+            const topic = document.getElementById('input-topic').value.trim() || ACCOUNTING_CATALOG[0].title;
+            document.getElementById('mabar-topic-input').value = topic;
+            document.getElementById('mabar-level-select').value = state.user.quizLevel || 'siswa';
+            switchTab('mabar');
+        }
+
+        function buildFallbackBatch(topic, count) {
+            const batch = [];
+            for (let i = 0; i < count; i++) {
+                const template = FALLBACK_QUESTIONS[i % FALLBACK_QUESTIONS.length];
+                batch.push({
+                    question: `[Latihan ${topic}] ${template.question}`,
+                    options: [...template.options],
+                    correctIndex: template.correctIndex,
+                    explanation: template.explanation
+                });
+            }
+            return batch;
+        }
+
+        async function fetchQuestionBatch(topic, batchCount, difficulty, langMode, existingTitles = [], levelOverride = null) {
+            const activeLevel = levelOverride || state.user.quizLevel;
+            const levelText = activeLevel === 'siswa'
+                ? "Jenjang Siswa/i Sekolah Menengah SMA/SMK (Kurikulum Akuntansi Dasar, Perusahaan Jasa/Dagang, SAK EMKM)"
+                : "Jenjang Mahasiswa/i Perguruan Tinggi & Umum (Keilmuan Akuntansi Komprehensif: PSAK/IFRS, Sektor Publik, Desa, Pemerintahan, Biaya, Pajak, Audit, SIA/SIM, Komputer Akuntansi, FinTech, Syariah, ESG)";
+
+            const langInstruction = langMode === 'en'
+                ? "Write ALL questions, options, and explanations in clear Accounting English (IFRS/GAAP terminology)."
+                : langMode === 'bi'
+                ? "Write questions and explanations in Bilingual Indonesian + English Accounting Terms (e.g., Piutang Usaha / Accounts Receivable)."
+                : "Tulis seluruh soal, pilihan jawaban, dan pembahasan dalam Bahasa Indonesia yang santai, jelas, dan mudah dipahami.";
+
+            const avoidClause = existingTitles.length > 0
+                ? `Hindari mengulang soal yang mirip dengan daftar berikut: ${existingTitles.slice(-10).join(' | ')}.`
+                : "";
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: `Buatkan tepat ${batchCount} soal pilihan ganda akuntansi tentang "${topic}" untuk ${levelText} tingkat kesulitan ${difficulty}. ${langInstruction} ${avoidClause}` }]
+                }],
+                systemInstruction: {
+                    parts: [{ text: `Kamu adalah Prof. Akun, pengajar akuntansi yang asik, teliti, dan jago bikin soal berkualitas. Setiap soal wajib memiliki 4 pilihan jawaban, 1 indeks jawaban benar (0-3), dan pembahasan langkah demi langkah yang ramah dan mudah dipahami. Jika pembahasan memuat jurnal Debit/Kredit atau perbandingan angka, sajikan dalam format tabel markdown standar (| Akun | Debit (Rp) | Kredit (Rp) |) agar rapi, dan DILARANG menggunakan tanda pagar (#) atau bintang ganda (**) yang berantakan.` }]
+                },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                question: { type: "STRING" },
+                                options: { type: "ARRAY", items: { type: "STRING" } },
+                                correctIndex: { type: "INTEGER" },
+                                explanation: { type: "STRING" }
+                            },
+                            required: ["question", "options", "correctIndex", "explanation"]
+                        }
+                    }
+                }
+            };
+
+            try {
+                const res = await callGeminiAPI(payload);
+                const raw = res?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!raw) throw new Error("No JSON text");
+                const cleanJson = raw.replace(/```json|```/gi, '').trim();
+                const parsed = JSON.parse(cleanJson);
+                if (!Array.isArray(parsed) || parsed.length === 0) throw new Error("Empty array");
+                return parsed;
+            } catch (err) {
+                console.warn("Using reliable fallback questions due to API delay:", err.message);
+                return buildFallbackBatch(topic, batchCount);
+            }
+        }
+
+        async function startQuizGeneration(customTopic = null, customLang = null) {
+            state.mabar.roomCode = null;
+            window.currentMabarRoomCode = null;
+            if (window.cloudUnsubscribeRoom) window.cloudUnsubscribeRoom();
+
+            const topic = customTopic || document.getElementById('input-topic').value.trim() || ACCOUNTING_CATALOG[0].title;
+            const targetTotal = parseInt(document.getElementById('select-count').value);
+            const difficulty = document.getElementById('select-difficulty').value;
+            const langMode = customLang || state.user.lang;
+
+            document.getElementById('btn-generate-quiz').disabled = true;
+            document.getElementById('quiz-loading').classList.remove('hidden');
+
+            const initialBatchSize = Math.min(targetTotal, 10);
+
+            try {
+                const firstBatch = await fetchQuestionBatch(topic, initialBatchSize, difficulty, langMode);
+
+                state.quiz = {
+                    topic,
+                    targetTotal,
+                    questions: firstBatch,
+                    currentIndex: 0,
+                    score: 0,
+                    streak: 0,
+                    maxStreak: 0,
+                    correctCount: 0,
+                    timeLeft: 60,
+                    timerInterval: null,
+                    isAnswered: false,
+                    isFetchingMore: false,
+                    userAnswers: []
+                };
+
+                igniteDailyFlame();
+
+                switchTab('quiz');
+                configureArenaLayoutForMode(false);
+                document.getElementById('quiz-topic-display').textContent = topic;
+                document.getElementById('quiz-total-num').textContent = targetTotal;
+                updateArenaScoreboard();
+                renderArenaQuestion();
+
+                if (targetTotal > firstBatch.length) {
+                    loadRemainingBatchesInBackground(topic, targetTotal, difficulty, langMode);
+                }
+            } catch (err) {
+                showToast("Terjadi kendala saat memuat soal. Silakan coba lagi.", "error");
+            } finally {
+                document.getElementById('btn-generate-quiz').disabled = false;
+                document.getElementById('quiz-loading').classList.add('hidden');
+            }
+        }
+
+        async function loadRemainingBatchesInBackground(topic, targetTotal, difficulty, langMode) {
+            state.quiz.isFetchingMore = true;
+            const pill = document.getElementById('batch-loading-pill');
+            pill.classList.remove('hidden');
+
+            while (state.quiz.questions.length < targetTotal && !document.getElementById('view-quiz').classList.contains('hidden')) {
+                const needed = Math.min(10, targetTotal - state.quiz.questions.length);
+                try {
+                    const existing = state.quiz.questions.map(q => q.question.slice(0, 60));
+                    const nextBatch = await fetchQuestionBatch(topic, needed, difficulty, langMode, existing);
+                    if (Array.isArray(nextBatch) && nextBatch.length > 0) {
+                        state.quiz.questions.push(...nextBatch);
+                        document.getElementById('quiz-total-num').textContent = Math.max(targetTotal, state.quiz.questions.length);
+                    } else {
+                        break;
+                    }
+                } catch (e) {
+                    await new Promise(r => setTimeout(r, 1500));
+                }
+            }
+            state.quiz.isFetchingMore = false;
+            pill.classList.add('hidden');
+        }
+
+        // ==================== MULTIPLAYER / MABAR LINTAS PERANGKAT ====================
+        function generateRoomCode6() {
+            const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+            let code = "";
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+
+        async function createMabarRoom() {
+            const topic = document.getElementById('mabar-topic-input').value.trim() || ACCOUNTING_CATALOG[0].title;
+            const level = document.getElementById('mabar-level-select').value;
+            const count = parseInt(document.getElementById('mabar-count-select').value);
+            const btn = document.getElementById('btn-create-room');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Menyiapkan Ruang & Soal AI...</span>`;
+            lucide.createIcons();
+
+            try {
+                const questions = await fetchQuestionBatch(topic, count, "Sedang", state.user.lang, [], level);
+                const roomCode = generateRoomCode6();
+                const playerId = window.getCloudPlayerId();
+
+                const roomData = {
+                    roomCode,
+                    hostId: playerId,
+                    topic,
+                    level,
+                    questionCount: questions.length,
+                    status: "waiting",
+                    questions,
+                    createdAt: Date.now(),
+                    players: {
+                        [playerId]: {
+                            name: state.user.nickname || "Host Akun",
+                            avatar: state.user.avatar || CUTE_AVATARS[0].svg,
+                            score: 0,
+                            answeredCount: 0,
+                            finished: false
+                        }
+                    }
+                };
+
+                await window.cloudSaveRoom(roomCode, roomData);
+                enterMabarLobby(roomCode, true, roomData);
+                showToast(`Ruang Lomba ${roomCode} berhasil dibuat! Bagikan kodenya ke temanmu.`, "success");
+            } catch (e) {
+                showToast("Gagal membuat ruang lomba. Coba lagi ya!", "error");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4 text-yellow-300"></i><span>Buat Ruang & Dapatkan Kode Undangan</span>`;
+                lucide.createIcons();
+            }
+        }
+
+        async function joinMabarRoom() {
+            const codeInput = document.getElementById('mabar-join-code').value.trim().toUpperCase();
+            if (codeInput.length < 4) {
+                showToast("Masukkan kode ruang yang valid dari temanmu!", "warning");
+                return;
+            }
+
+            const roomData = await window.cloudGetRoom(codeInput);
+            if (!roomData) {
+                showToast(`Ruang dengan kode "${codeInput}" tidak ditemukan. Cek kembali kodenya ya!`, "error");
+                return;
+            }
+
+            const playerId = window.getCloudPlayerId();
+            const isHost = roomData.hostId === playerId;
+            await window.cloudJoinOrUpdatePlayer(codeInput, playerId, {
+                name: state.user.nickname || "Pemain Akun",
+                avatar: state.user.avatar || CUTE_AVATARS[0].svg,
+                score: 0,
+                answeredCount: 0,
+                finished: false
+            });
+
+            enterMabarLobby(codeInput, isHost, roomData);
+            showToast(`Berhasil bergabung ke ruang ${codeInput}!`, "success");
+        }
+
+        function enterMabarLobby(roomCode, isHost, initialData) {
+            state.mabar = {
+                roomCode,
+                isHost,
+                roomData: initialData,
+                hasStartedMatch: false
+            };
+            window.currentMabarRoomCode = roomCode;
+
+            document.getElementById('mabar-setup-grid').classList.add('hidden');
+            document.getElementById('mabar-lobby-panel').classList.remove('hidden');
+
+            document.getElementById('lobby-room-code').textContent = roomCode;
+            document.getElementById('lobby-topic-title').textContent = initialData.topic;
+            document.getElementById('lobby-meta-info').textContent = `${initialData.questionCount} Soal • 60 Detik/Soal • Jenjang ${initialData.level === 'siswa' ? 'Siswa/i' : 'Mahasiswa/i'}`;
+
+            const startBtn = document.getElementById('btn-host-start-mabar');
+            const waitHint = document.getElementById('lobby-wait-hint');
+            if (isHost) {
+                startBtn.classList.remove('hidden');
+                waitHint.textContent = "Kamu adalah Host! Bagikan kode di atas ke temanmu lalu klik Mulai Lomba.";
+            } else {
+                startBtn.classList.add('hidden');
+                waitHint.textContent = "Menunggu Host memulai lomba... Kuis akan otomatis dimulai di layar semua peserta!";
+            }
+
+            window.onRoomSnapshotUpdate(initialData);
+            if (window.cloudSubscribeRoom) window.cloudSubscribeRoom(roomCode);
+        }
+
+        window.onRoomSnapshotUpdate = function(roomData) {
+            if (!roomData || !state.mabar.roomCode) return;
+            state.mabar.roomData = roomData;
+
+            const playersObj = roomData.players || {};
+            const playersArr = Object.entries(playersObj).map(([uid, p]) => ({ uid, ...p }));
+            playersArr.sort((a, b) => (b.score || 0) - (a.score || 0));
+
+            // Update Lobby Players Grid
+            const countEl = document.getElementById('lobby-player-count');
+            const gridEl = document.getElementById('lobby-players-grid');
+            if (countEl && gridEl) {
+                countEl.textContent = playersArr.length;
+                gridEl.innerHTML = playersArr.map(p => `
+                    <div class="p-3 rounded-2xl bg-surface border border-line flex items-center gap-3 shadow-sm">
+                        <img src="${p.avatar || CUTE_AVATARS[0].svg}" class="w-10 h-10 rounded-xl object-cover bg-primary-100 shrink-0">
+                        <div class="min-w-0">
+                            <div class="font-bold text-xs sm:text-sm truncate">${p.name}</div>
+                            <div class="text-[10px] font-semibold text-emerald-600">${p.uid === roomData.hostId ? '👑 Host Ruang' : '✅ Siap Lomba'}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Update Live Leaderboard in Arena & Summary
+            renderMultiplayerLeaderboards(playersArr);
+
+            // Auto-start match for all connected devices when status becomes 'playing'
+            if (roomData.status === 'playing' && !state.mabar.hasStartedMatch) {
+                state.mabar.hasStartedMatch = true;
+                launchMabarMatchOnDevice(roomData);
+            }
+        };
+
+        function renderMultiplayerLeaderboards(playersArr) {
+            const html = playersArr.map((p, idx) => {
+                const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`;
+                return `
+                    <div class="p-2.5 rounded-xl bg-surface border border-line flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <span class="font-mono font-extrabold text-xs w-6 text-center">${medal}</span>
+                            <img src="${p.avatar || CUTE_AVATARS[0].svg}" class="w-7 h-7 rounded-lg object-cover shrink-0">
+                            <div class="min-w-0">
+                                <div class="font-bold text-xs truncate">${p.name}</div>
+                                <div class="text-[10px] text-muted">${p.answeredCount || 0} soal dijawab ${p.finished ? '• Selesai' : ''}</div>
+                            </div>
+                        </div>
+                        <div class="font-mono font-extrabold text-xs text-primary-600 shrink-0">${(p.score || 0).toLocaleString('id-ID')}</div>
+                    </div>
+                `;
+            }).join('');
+
+            const arenaLb = document.getElementById('arena-live-leaderboard');
+            const summaryLb = document.getElementById('summary-final-leaderboard');
+            if (arenaLb) arenaLb.innerHTML = html;
+            if (summaryLb) summaryLb.innerHTML = html;
+        }
+
+        async function hostStartMabarMatch() {
+            if (!state.mabar.roomCode || !state.mabar.roomData) return;
+            const updated = { ...state.mabar.roomData, status: "playing" };
+            await window.cloudSaveRoom(state.mabar.roomCode, updated);
+            window.onRoomSnapshotUpdate(updated);
+        }
+
+        function launchMabarMatchOnDevice(roomData) {
+            const questions = roomData.questions || [];
+            state.quiz = {
+                topic: roomData.topic,
+                targetTotal: questions.length,
+                questions,
+                currentIndex: 0,
+                score: 0,
+                streak: 0,
+                maxStreak: 0,
+                correctCount: 0,
+                timeLeft: 60,
+                timerInterval: null,
+                isAnswered: false,
+                isFetchingMore: false,
+                userAnswers: []
+            };
+
+            igniteDailyFlame();
+            switchTab('quiz');
+            configureArenaLayoutForMode(true, roomData.roomCode);
+            document.getElementById('quiz-topic-display').textContent = roomData.topic;
+            document.getElementById('quiz-total-num').textContent = questions.length;
+            updateArenaScoreboard();
+            renderArenaQuestion();
+        }
+
+        function configureArenaLayoutForMode(isMabar, roomCode = "") {
+            const mainCol = document.getElementById('arena-main-col');
+            const sidebar = document.getElementById('arena-mabar-sidebar');
+            const roomBadge = document.getElementById('arena-room-badge');
+            const sideCode = document.getElementById('sidebar-room-code');
+
+            if (isMabar) {
+                mainCol.className = "lg:col-span-8 realistic-card ledger-accent-top rounded-3xl overflow-hidden";
+                sidebar.classList.remove('hidden');
+                roomBadge.classList.remove('hidden');
+                roomBadge.textContent = `ROOM: ${roomCode}`;
+                sideCode.textContent = roomCode;
+            } else {
+                mainCol.className = "lg:col-span-12 realistic-card ledger-accent-top rounded-3xl overflow-hidden";
+                sidebar.classList.add('hidden');
+                roomBadge.classList.add('hidden');
+            }
+        }
+
+        function copyRoomInviteLink() {
+            const code = state.mabar.roomCode;
+            if (!code) return;
+            const url = new URL(window.location.href);
+            url.searchParams.set('room', code);
+            const inviteText = `Yuk adu cepat kuis akuntansi bareng ${state.user.nickname} di AkunQuiz AI Pro!\nKode Ruang: ${code}\nLink Langsung: ${url.toString()}`;
+
+            const tempArea = document.createElement('textarea');
+            tempArea.value = inviteText;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempArea);
+
+            showToast(`Undangan & Kode Ruang ${code} berhasil disalin! Tempel ke WhatsApp temanmu.`, "success");
+        }
+
+        function leaveMabarRoom() {
+            if (window.cloudUnsubscribeRoom) window.cloudUnsubscribeRoom();
+            state.mabar = { roomCode: null, isHost: false, roomData: null, hasStartedMatch: false };
+            window.currentMabarRoomCode = null;
+            document.getElementById('mabar-lobby-panel').classList.add('hidden');
+            document.getElementById('mabar-setup-grid').classList.remove('hidden');
+        }
+
+        // ==================== QUIZ ARENA (60 SECONDS PER QUESTION) ====================
+        function updateArenaScoreboard() {
+            document.getElementById('quiz-score').textContent = state.quiz.score.toLocaleString('id-ID');
+            document.getElementById('quiz-streak').textContent = state.quiz.streak;
+        }
+
+        function renderArenaQuestion() {
+            const qState = state.quiz;
+            const q = qState.questions[qState.currentIndex];
+            if (!q) {
+                showToast("Menyiapkan soal berikutnya...", "info");
+                setTimeout(renderArenaQuestion, 1500);
+                return;
+            }
+
+            qState.isAnswered = false;
+            document.getElementById('quiz-current-num').textContent = qState.currentIndex + 1;
+            document.getElementById('question-difficulty-badge').textContent = document.getElementById('select-difficulty').value;
+            document.getElementById('quiz-question-text').textContent = q.question;
+            document.getElementById('quiz-feedback-panel').classList.add('hidden');
+
+            const grid = document.getElementById('quiz-options-grid');
+            grid.innerHTML = q.options.slice(0, 4).map((opt, idx) => {
+                const st = OPTION_STYLES[idx];
+                return `
+                    <button type="button" id="arena-opt-${idx}" onclick="submitArenaAnswer(${idx})"
+                        class="quiz-card-option ${st.bg} text-white rounded-2xl p-5 text-left flex items-start gap-3.5">
+                        <span class="w-8 h-8 rounded-xl bg-black/25 flex items-center justify-center font-display font-bold text-sm shrink-0">${st.label}</span>
+                        <span class="font-semibold text-sm sm:text-base leading-snug pt-0.5">${opt}</span>
+                    </button>
+                `;
+            }).join('');
+
+            startOneMinuteTimer();
+        }
+
+        function startOneMinuteTimer() {
+            clearInterval(state.quiz.timerInterval);
+            state.quiz.timeLeft = 60;
+            const textEl = document.getElementById('quiz-timer-text');
+            const barEl = document.getElementById('quiz-timer-bar');
+
+            textEl.textContent = "60";
+            barEl.style.transition = 'none';
+            barEl.style.width = '100%';
+            void barEl.offsetWidth;
+            barEl.style.transition = 'width 60s linear';
+            barEl.style.width = '0%';
+
+            state.quiz.timerInterval = setInterval(() => {
+                state.quiz.timeLeft--;
+                textEl.textContent = Math.max(0, state.quiz.timeLeft);
+                if (state.quiz.timeLeft <= 0) {
+                    clearInterval(state.quiz.timerInterval);
+                    if (!state.quiz.isAnswered) submitArenaAnswer(-1);
+                }
+            }, 1000);
+        }
+
+        async function submitArenaAnswer(selectedIndex) {
+            if (state.quiz.isAnswered) return;
+            state.quiz.isAnswered = true;
+            clearInterval(state.quiz.timerInterval);
+
+            const barEl = document.getElementById('quiz-timer-bar');
+            barEl.style.transition = 'none';
+            barEl.style.width = window.getComputedStyle(barEl).width;
+
+            const qState = state.quiz;
+            const q = qState.questions[qState.currentIndex];
+            const isCorrect = selectedIndex === q.correctIndex;
+            playTone(isCorrect);
+
+            let points = 0;
+            if (isCorrect) {
+                points = 600 + Math.round((qState.timeLeft / 60) * 400) + (qState.streak * 100);
+                qState.score += points;
+                qState.streak += 1;
+                qState.correctCount += 1;
+                if (qState.streak > qState.maxStreak) qState.maxStreak = qState.streak;
+            } else {
+                qState.streak = 0;
+            }
+
+            qState.userAnswers.push({
+                question: q.question,
+                options: q.options,
+                correctIndex: q.correctIndex,
+                selectedIndex,
+                isCorrect,
+                explanation: q.explanation
+            });
+
+            updateArenaScoreboard();
+
+            // Sync live score to Mabar Room if active
+            if (state.mabar.roomCode && window.cloudJoinOrUpdatePlayer) {
+                const playerId = window.getCloudPlayerId();
+                await window.cloudJoinOrUpdatePlayer(state.mabar.roomCode, playerId, {
+                    name: state.user.nickname || "Pemain Akun",
+                    avatar: state.user.avatar || CUTE_AVATARS[0].svg,
+                    score: qState.score,
+                    answeredCount: qState.userAnswers.length,
+                    finished: qState.userAnswers.length >= qState.targetTotal
+                });
+            }
+
+            for (let i = 0; i < 4; i++) {
+                const btn = document.getElementById(`arena-opt-${i}`);
+                if (!btn) continue;
+                btn.disabled = true;
+                if (i === q.correctIndex) {
+                    btn.classList.remove('bg-quiz-blue', 'bg-quiz-teal', 'bg-quiz-yellow', 'bg-quiz-red');
+                    btn.classList.add('bg-emerald-600', 'ring-4', 'ring-emerald-300');
+                } else if (i === selectedIndex && !isCorrect) {
+                    btn.classList.remove('bg-quiz-blue', 'bg-quiz-teal', 'bg-quiz-yellow', 'bg-quiz-red');
+                    btn.classList.add('bg-rose-600', 'ring-4', 'ring-rose-300');
+                } else {
+                    btn.classList.add('opacity-35');
+                }
+            }
+
+            const banner = document.getElementById('feedback-banner');
+            const fIcon = document.getElementById('feedback-icon');
+            const fTitle = document.getElementById('feedback-title');
+            const fPoints = document.getElementById('feedback-points');
+
+            if (isCorrect) {
+                banner.className = "p-4 rounded-2xl flex flex-wrap items-center justify-between gap-3 bg-emerald-500/15 border border-emerald-400/40";
+                fIcon.className = "w-10 h-10 rounded-xl flex items-center justify-center text-white bg-emerald-600";
+                fIcon.textContent = "✓";
+                fTitle.textContent = `Mantap, ${state.user.nickname}! Jawabanmu Benar!`;
+                fPoints.textContent = `+${points} Poin ${qState.streak > 1 ? `🔥 Combo x${qState.streak}` : ''}`;
+            } else {
+                banner.className = "p-4 rounded-2xl flex flex-wrap items-center justify-between gap-3 bg-rose-500/15 border border-rose-400/40";
+                fIcon.className = "w-10 h-10 rounded-xl flex items-center justify-center text-white bg-rose-600";
+                fIcon.textContent = "✕";
+                fTitle.textContent = selectedIndex === -1 ? "Waktu 1 Menit Habis!" : `Hampir Tepat, ${state.user.nickname}!`;
+                fPoints.textContent = "Yuk cek penjelasan gampang dari Prof. Akun di bawah!";
+            }
+
+            document.getElementById('feedback-explanation').innerHTML = formatCleanContent(q.explanation);
+            document.getElementById('quiz-feedback-panel').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function nextQuestion() {
+            const qState = state.quiz;
+            if (qState.currentIndex + 1 < qState.targetTotal && (qState.currentIndex + 1 < qState.questions.length || qState.isFetchingMore)) {
+                qState.currentIndex++;
+                renderArenaQuestion();
+            } else {
+                finishQuizSummary();
+            }
+        }
+
+        function exitQuiz() {
+            clearInterval(state.quiz.timerInterval);
+            if (state.quiz.userAnswers.length > 0) {
+                finishQuizSummary();
+            } else {
+                switchTab('generator');
+            }
+        }
+
+        function finishQuizSummary() {
+            switchTab('summary');
+            const qState = state.quiz;
+            const answeredTotal = Math.max(1, qState.userAnswers.length);
+            const acc = Math.round((qState.correctCount / answeredTotal) * 100);
+
+            document.getElementById('summary-nickname').textContent = state.user.nickname;
+            document.getElementById('summary-daily-flame').textContent = state.flame.streakCount;
+            document.getElementById('summary-score').textContent = qState.score.toLocaleString('id-ID');
+            document.getElementById('summary-accuracy').textContent = `${acc}%`;
+            document.getElementById('summary-correct').textContent = `${qState.correctCount}/${answeredTotal}`;
+            document.getElementById('summary-streak').textContent = qState.maxStreak;
+
+            const podiumBox = document.getElementById('summary-mabar-podium');
+            if (state.mabar.roomCode) {
+                podiumBox.classList.remove('hidden');
+                document.getElementById('summary-room-code').textContent = state.mabar.roomCode;
+            } else {
+                podiumBox.classList.add('hidden');
+            }
+
+            const list = document.getElementById('summary-review-list');
+            list.innerHTML = qState.userAnswers.map((item, idx) => `
+                <div class="p-5 rounded-2xl border ${item.isCorrect ? 'border-emerald-400/50 bg-emerald-500/5' : 'border-rose-400/50 bg-rose-500/5'} space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${item.isCorrect ? 'bg-emerald-500/20 text-emerald-700' : 'bg-rose-500/20 text-rose-700'}">
+                            Soal #${idx + 1} • ${item.isCorrect ? 'Benar' : 'Perlu Review'}
+                        </span>
+                    </div>
+                    <p class="font-bold text-sm sm:text-base whitespace-pre-line">${item.question}</p>
+                    <div class="text-xs space-y-1">
+                        <div><strong>Jawabanmu:</strong> ${item.selectedIndex >= 0 ? item.options[item.selectedIndex] : 'Waktu Habis'}</div>
+                        <div class="text-emerald-600"><strong>Kunci Jawaban:</strong> ${item.options[item.correctIndex]}</div>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-card border border-line text-xs sm:text-sm leading-relaxed space-y-1.5">
+                        <div class="font-bold text-primary-600">💡 Penjelasan Prof. Akun:</div>
+                        <div>${formatCleanContent(item.explanation)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function askProfAboutCurrentQuestion() {
+            const q = state.quiz.questions[state.quiz.currentIndex];
+            if (!q) return;
+            clearInterval(state.quiz.timerInterval);
+            switchTab('forum');
+            switchForumSubMode('chat');
+            const prompt = `Prof, aku tadi ketemu soal kuis ini tapi masih pengen paham logikanya lebih dalam:\n\n"${q.question}"\n\nKunci jawabannya: ${q.options[q.correctIndex]}.\nBisa jelasin pakai bahasa yang santai dan analogi gampang nggak Prof?`;
+            document.getElementById('prof-input').value = prompt;
+            sendProfMessage(new Event('submit'));
+        }
+
+        // ==================== ACCOUNTING ENGLISH STUDIO ====================
+        function speakEnglishTerm(text) {
+            if (!('speechSynthesis' in window)) {
+                showToast("Browser tidak mendukung fitur suara.", "warning");
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'en-US';
+            utter.rate = 0.92;
+            window.speechSynthesis.speak(utter);
+        }
+
+        function filterEnglishCategory(cat) {
+            state.englishFilter = cat;
+            document.querySelectorAll('.en-cat-btn').forEach(btn => {
+                if (btn.textContent.includes(cat)) {
+                    btn.className = "en-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-primary-600 text-white";
+                } else {
+                    btn.className = "en-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-surface border border-line text-muted hover:text-ink";
+                }
+            });
+            renderEnglishCards();
+        }
+
+        function filterEnglishTerms() {
+            renderEnglishCards();
+        }
+
+        function renderEnglishCards() {
+            const query = (document.getElementById('english-search-input')?.value || '').toLowerCase();
+            const filtered = ACCOUNTING_ENGLISH_TERMS.filter(item => {
+                const matchCat = state.englishFilter === 'All' || item.cat === state.englishFilter;
+                const matchText = item.en.toLowerCase().includes(query) || item.id.toLowerCase().includes(query);
+                return matchCat && matchText;
+            });
+
+            const grid = document.getElementById('english-cards-grid');
+            grid.innerHTML = filtered.map(item => `
+                <div class="realistic-card rounded-3xl p-5 hover:border-primary-500 transition-all flex flex-col justify-between space-y-3">
+                    <div class="space-y-2">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-primary-50 text-primary-700">${item.cat}</span>
+                            <button onclick="speakEnglishTerm('${item.en.replace(/'/g, "\\'")}')" title="Dengarkan Pelafalan Inggris"
+                                class="w-8 h-8 rounded-xl bg-primary-600 hover:bg-primary-700 text-white flex items-center justify-center shrink-0">
+                                <i data-lucide="volume-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <h3 class="font-display font-extrabold text-lg text-ink">${item.en}</h3>
+                        <div class="text-xs font-mono text-muted">${item.phon}</div>
+                        <div class="inline-block px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-700 text-xs font-bold">
+                            🇮🇩 ${item.id}
+                        </div>
+                        <p class="text-xs text-muted leading-relaxed pt-1">${item.def}</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-surface border border-line text-[11px] font-mono text-ink">
+                        <span class="text-[10px] font-sans font-bold text-primary-600 block mb-0.5">Journal Example:</span>
+                        ${item.journal}
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        async function askAITranslateAccountingTerm() {
+            const term = document.getElementById('english-search-input').value.trim();
+            if (!term) {
+                showToast("Ketik dulu istilah akuntansi Inggris atau Indonesia yang ingin dicari!", "warning");
+                return;
+            }
+            const box = document.getElementById('ai-term-result');
+            box.classList.remove('hidden');
+            box.innerHTML = `<div class="text-sm font-bold text-primary-600 animate-pulse">⏳ Prof. Akun sedang menerjemahkan & membuat contoh jurnal untuk "${term}"...</div>`;
+
+            try {
+                const res = await callGeminiAPI({
+                    contents: [{ parts: [{ text: `Jelaskan istilah akuntansi "${term}" dalam Bahasa Inggris dan Bahasa Indonesia secara ringkas: berikan padanan katanya, cara bacanya, arti mudahnya, dan 1 contoh ayat jurnal dalam tabel markdown (| Account | Debit | Credit |). Hindari tanda pagar (#) dan bintang ganda berantakan.` }] }]
+                });
+                const txt = res?.candidates?.[0]?.content?.parts?.[0]?.text || "Tidak ditemukan.";
+                box.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="font-display font-bold text-base text-primary-600">Hasil Kamus AI: "${term}"</span>
+                        <button onclick="speakEnglishTerm('${term.replace(/'/g, "\\'")}')" class="px-3 py-1 rounded-lg bg-primary-600 text-white text-xs font-bold flex items-center gap-1">
+                            <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> Dengar
+                        </button>
+                    </div>
+                    <div class="text-sm leading-relaxed pt-1 space-y-1.5">${formatCleanContent(txt)}</div>
+                `;
+                lucide.createIcons();
+            } catch (e) {
+                box.classList.add('hidden');
+                showToast("Gagal memuat penjelasan istilah.", "error");
+            }
+        }
+
+        function generateEnglishQuiz() {
+            startQuizGeneration("Accounting English Terminology & International Financial Statements (IFRS/GAAP)", "en");
+        }
+
+        // ==================== RUANG DISKUSI SERU & BANTU TUGAS ====================
+        function switchForumSubMode(mode) {
+            const chatView = document.getElementById('forum-sub-chat');
+            const boardView = document.getElementById('forum-sub-board');
+            const btnChat = document.getElementById('btn-sub-chat');
+            const btnBoard = document.getElementById('btn-sub-board');
+
+            if (mode === 'chat') {
+                chatView.classList.remove('hidden');
+                boardView.classList.add('hidden');
+                btnChat.className = "px-4 py-2.5 rounded-xl bg-white text-slate-900 font-bold text-xs sm:text-sm shadow-sm flex items-center gap-2";
+                btnBoard.className = "px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm border border-white/25 flex items-center gap-2";
+            } else {
+                chatView.classList.add('hidden');
+                boardView.classList.remove('hidden');
+                btnBoard.className = "px-4 py-2.5 rounded-xl bg-white text-slate-900 font-bold text-xs sm:text-sm shadow-sm flex items-center gap-2";
+                btnChat.className = "px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm border border-white/25 flex items-center gap-2";
+            }
+        }
+
+        function initProfChatGreeting() {
+            const box = document.getElementById('prof-chat-box');
+            const nick = state.user.nickname || "Sobat Akun";
+            box.innerHTML = `
+                <div class="flex items-start gap-3 max-w-3xl">
+                    <div class="w-9 h-9 rounded-2xl bg-primary-600 text-white flex items-center justify-center shrink-0 text-base shadow-sm">🧑‍🏫</div>
+                    <div class="bg-card p-4 rounded-2xl rounded-tl-none border border-line shadow-sm text-sm leading-relaxed space-y-2">
+                        <p>Halo <strong>${nick}</strong>! 👋 Selamat datang di ruang diskusi santai bareng <strong>Prof. Akun</strong>!</p>
+                        <p>Nggak usah tegang mikirin Debit-Kredit yang nggak balance. Di sini kita bahas akuntansi pakai bahasa sehari-hari yang gampang masuk logika. Kamu juga bisa tempel soal tugasmu di sini—nanti Prof bantu bedah langkah demi langkah dengan <strong>tabel jurnal yang rapi</strong> serta <strong>sumber referensi terpercaya</strong> (PSAK, IFRS, SAP, UU Pajak, atau buku teks)! Yuk, mau bahas apa kita hari ini?</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function resetProfChat() {
+            state.profHistory = [];
+            initProfChatGreeting();
+        }
+
+        function quickProfAsk(text) {
+            document.getElementById('prof-input').value = text;
+            sendProfMessage(new Event('submit'));
+        }
+
+        async function sendProfMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('prof-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+            input.value = '';
+
+            const box = document.getElementById('prof-chat-box');
+            box.innerHTML += `
+                <div class="flex justify-end">
+                    <div class="bg-primary-600 text-white p-4 rounded-2xl rounded-tr-none shadow-sm text-sm max-w-2xl leading-relaxed whitespace-pre-line">${msg}</div>
+                </div>
+            `;
+
+            const loadId = 'prof-load-' + Date.now();
+            box.innerHTML += `
+                <div id="${loadId}" class="flex items-start gap-3 max-w-3xl">
+                    <div class="w-9 h-9 rounded-2xl bg-primary-600 text-white flex items-center justify-center shrink-0 text-base">🧑‍🏫</div>
+                    <div class="bg-card p-4 rounded-2xl rounded-tl-none border border-line text-sm text-muted animate-pulse">
+                        Prof. Akun lagi nyiapin penjelasan seru, tabel jurnal rapi & cek referensi PSAK/literaturnya buat ${state.user.nickname}...
+                    </div>
+                </div>
+            `;
+            box.scrollTop = box.scrollHeight;
+
+            state.profHistory.push({ role: "user", parts: [{ text: msg }] });
+
+            const nick = state.user.nickname || "Sobat Akun";
+            const level = state.user.quizLevel === 'siswa' ? "Siswa/i (SMA/SMK)" : "Mahasiswa/i";
+            const systemInstruction = `Kamu adalah "Prof. Akun", mentor dan pengajar akuntansi yang super ramah, seru, asik diajak diskusi, humoris ringan, dan sangat jago menjelaskan konsep rumit dengan analogi kehidupan sehari-hari yang mudah dipahami.
+Panggil pengguna dengan nama panggilannya: "${nick}" (jenjang kuis aktif: ${level}).
+Aturan format & gaya WAJIB:
+1. Gunakan gaya bahasa ngobrol yang hangat, menyemangati, tidak kaku, dan gampang dipahami.
+2. DILARANG menggunakan tanda pagar (#, ##, ###) untuk judul dan DILARANG membiarkan tanda bintang ganda (**) berantakan. Gunakan teks biasa yang terstruktur rapi.
+3. Setiap kali kamu menyajikan Ayat Jurnal Umum/Penyesuaian, Buku Besar, Neraca Saldo, Laporan Keuangan, atau perbandingan konsep/angka, WAJIB tampilkan dalam format tabel markdown standar dengan garis pemisah kolom yang jelas (contoh: | Tanggal | Keterangan / Akun | Debit (Rp) | Kredit (Rp) |) sehingga sistem dapat merendernya menjadi tabel HTML asli yang rapi!
+4. Jika "${nick}" meminta bantuan mengerjakan tugas atau studi kasus, berikan panduan langkah demi langkah yang mudah diikuti, lalu sertakan bagian "Sumber Referensi Terpercaya:" di akhir jawaban (sebutkan nomor PSAK / SAK EMKM / SAP / Permendagri / Perpres PBJ / IFRS / IPSAS / UU Perpajakan / Buku Teks yang relevan).`;
+
+            try {
+                const res = await callGeminiAPI({
+                    contents: state.profHistory,
+                    systemInstruction: { parts: [{ text: systemInstruction }] }
+                });
+                const reply = res?.candidates?.[0]?.content?.parts?.[0]?.text || "Waduh, koneksi Prof lagi agak putus-nyambung nih. Coba tanya lagi ya!";
+                state.profHistory.push({ role: "model", parts: [{ text: reply }] });
+
+                const loadEl = document.getElementById(loadId);
+                if (loadEl) {
+                    loadEl.innerHTML = `
+                        <div class="w-9 h-9 rounded-2xl bg-primary-600 text-white flex items-center justify-center shrink-0 text-base shadow-sm">🧑‍🏫</div>
+                        <div class="bg-card p-4 rounded-2xl rounded-tl-none border border-line shadow-sm text-sm leading-relaxed space-y-1.5 max-w-full overflow-hidden">${formatCleanContent(reply)}</div>
+                    `;
+                }
+            } catch (err) {
+                const loadEl = document.getElementById(loadId);
+                if (loadEl) loadEl.remove();
+                showToast("Gagal terhubung dengan Prof. Akun.", "error");
+            }
+            box.scrollTop = box.scrollHeight;
+        }
+
+        // ==================== COMMUNITY BOARD LOGIC ====================
+        function toggleNewPostForm() {
+            document.getElementById('new-post-form').classList.toggle('hidden');
+        }
+
+        function filterBoard(cat) {
+            state.boardFilter = cat;
+            document.querySelectorAll('.board-filter').forEach(b => {
+                b.className = b.textContent.trim() === cat
+                    ? "board-filter px-4 py-2 rounded-xl text-xs font-bold bg-primary-600 text-white"
+                    : "board-filter px-4 py-2 rounded-xl text-xs font-bold bg-surface border border-line text-muted";
+            });
+            renderBoardPosts();
+        }
+
+        async function submitBoardPost() {
+            const title = document.getElementById('board-title').value.trim();
+            const cat = document.getElementById('board-cat').value;
+            const content = document.getElementById('board-content').value.trim();
+            const autoAI = document.getElementById('board-ai-auto').checked;
+
+            if (!title || !content) {
+                showToast("Isi judul dan pertanyaan dulu ya!", "warning");
+                return;
+            }
+
+            const newPost = {
+                id: Date.now(),
+                author: state.user.nickname,
+                category: cat,
+                time: "Baru saja",
+                title,
+                content,
+                likes: 1,
+                replies: []
+            };
+
+            state.boardPosts.unshift(newPost);
+            document.getElementById('board-title').value = '';
+            document.getElementById('board-content').value = '';
+            document.getElementById('new-post-form').classList.add('hidden');
+            renderBoardPosts();
+
+            if (autoAI) {
+                const tempId = 'ai-' + Date.now();
+                newPost.replies.push({ id: tempId, author: "Prof. Akun 🧑‍🏫", isAI: true, time: "Mengetik...", text: "⏳ Lagi nyiapin penjelasan asik, tabel jurnal & sumber referensinya..." });
+                renderBoardPosts();
+
+                try {
+                    const res = await callGeminiAPI({
+                        contents: [{ parts: [{ text: `Sebagai Prof. Akun yang ramah, seru, dan mudah dipahami, jawab postingan diskusi dari ${state.user.nickname} ini:\nJudul: ${title}\nIsi: ${content}\nJika ada jurnal atau angka, tampilkan dalam format tabel markdown (| Akun | Debit (Rp) | Kredit (Rp) |). Hindari tanda pagar (#) dan bintang ganda (**) berantakan. Sertakan sumber referensi resmi.` }] }]
+                    });
+                    const txt = res?.candidates?.[0]?.content?.parts?.[0]?.text || "Siap, mari kita bahas!";
+                    const idx = newPost.replies.findIndex(r => r.id === tempId);
+                    if (idx !== -1) {
+                        newPost.replies[idx] = { author: "Prof. Akun 🧑‍🏫", isAI: true, time: "Baru saja", text: txt };
+                    }
+                    renderBoardPosts();
+                } catch (e) {
+                    newPost.replies = newPost.replies.filter(r => r.id !== tempId);
+                    renderBoardPosts();
+                }
+            }
+        }
+
+        function addBoardReply(postId) {
+            const inp = document.getElementById(`b-reply-${postId}`);
+            const txt = inp.value.trim();
+            if (!txt) return;
+            const post = state.boardPosts.find(p => p.id === postId);
+            if (post) {
+                post.replies.push({
+                    author: state.user.nickname,
+                    isAI: false,
+                    time: "Baru saja",
+                    text: txt
+                });
+                inp.value = '';
+                renderBoardPosts();
+            }
+        }
+
+        function renderBoardPosts() {
+            const list = document.getElementById('board-posts-list');
+            const items = state.boardFilter === 'Semua'
+                ? state.boardPosts
+                : state.boardPosts.filter(p => p.category === state.boardFilter);
+
+            list.innerHTML = items.map(p => `
+                <div class="realistic-card rounded-3xl p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="font-bold text-sm">${p.author}</div>
+                            <div class="text-[11px] text-muted">${p.time}</div>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-primary-50 text-primary-700">${p.category}</span>
+                    </div>
+                    <div>
+                        <h4 class="font-display font-bold text-lg">${p.title}</h4>
+                        <p class="text-sm text-muted mt-1 whitespace-pre-line">${p.content}</p>
+                    </div>
+                    <div class="bg-surface rounded-2xl p-4 space-y-3">
+                        ${p.replies.map(r => `
+                            <div class="p-3.5 rounded-xl ${r.isAI ? 'bg-primary-50/70 border border-primary-200' : 'bg-card border border-line'} text-xs sm:text-sm space-y-1.5">
+                                <div class="font-bold text-xs ${r.isAI ? 'text-primary-700' : 'text-ink'}">${r.author} • <span class="font-normal text-muted">${r.time}</span></div>
+                                <div class="leading-relaxed space-y-1">${formatCleanContent(r.text)}</div>
+                            </div>
+                        `).join('')}
+                        <div class="flex gap-2">
+                            <input type="text" id="b-reply-${p.id}" placeholder="Ikut nimbrung diskusi..." class="flex-grow px-3 py-2 bg-card border border-line rounded-xl text-xs outline-none">
+                            <button onclick="addBoardReply(${p.id})" class="px-4 py-2 rounded-xl bg-primary-600 text-white font-bold text-xs">Balas</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
